@@ -5,13 +5,14 @@
         var cascata = false;
         var ponte = false;
         var albero = false;
-		
+		var windowWidth = window.innerWidth - 550;
+		var windowHeight = window.innerHeight - 350;
 		function Start() {
 			scene = new THREE.Scene();
 			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 			renderer = new THREE.WebGLRenderer( {antialias: true} );
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize(windowWidth , windowHeight );
 			renderer.setClearColor( 0xf0f0f0 );
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.gammaInput = true;
@@ -19,8 +20,7 @@
 			renderer.shadowMap.enabled = true;
 			document.body.appendChild( renderer.domElement );
 			
-			camera.position.set(40, 50, -30 );
-			camera.lookAt( new THREE.Vector3(0,0,0));
+			camera.position.set(0, 10, -4 );
 			
 			hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
 			hemiLight.color.setHSL( 0.6, 1, 0.6 );
@@ -56,6 +56,10 @@
 			
 			controls = new THREE.OrbitControls( camera );
 			controls.addEventListener( 'change', Render );
+			const geometry = new THREE.BoxGeometry( 10, 1, 1 );
+			const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+			const cube = new THREE.Mesh( geometry, material );
+			scene.add( cube );
 
 
          
