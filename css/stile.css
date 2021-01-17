@@ -1,0 +1,96 @@
+.nav {
+	position: absolute;
+	top: 15px;
+	z-index: 99;
+	left: 0;
+	right: 0;
+}
+.uk-sticky-placeholder {
+	height: 0 !important;
+}
+.top-wrap::before, .overlay-wrap::before {
+	position: absolute;
+	top:0;
+	right:0;
+	left: 0;
+	bottom: 0;
+	content: '';
+	z-index: 1;
+	background-color: rgba(0,0,0,0.5);
+}
+.top-wrap-height {
+	height: 80vh;
+	min-height: 460px;
+	transition: height 0.25s;
+}
+.uk-subnav-pill > * > :first-child {
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.top-container {
+	z-index: 2;
+}
+.uk-logo img {
+	height: 38px;
+}
+.subtitle-text {
+	font-size: 1.2em;
+	opacity: 0.7;
+	font-weight: 300;
+}
+.logos-grid img {
+	display: block;
+	width: 60px;
+	margin: 0 auto;
+	filter:  grayscale(100%);
+	transition: filter 0.25s;
+}
+.logos-grid img:hover {
+	display: block;
+	width: 60px;
+	margin: 0 auto;
+	filter:  grayscale(0);
+}
+
+nav.nav-scroll {
+	position: relative;
+	z-index: 2;
+	height: 4rem;
+	box-sizing: border-box;
+	overflow-y: hidden;
+	padding: 1rem;
+	border-top: 10px solid rgba(0,0,0,0.075);
+	line-height: 1em;
+}
+nav.nav-scroll > ul {
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	padding-bottom: 1rem;
+}
+nav.nav-scroll > ul > li > a {
+	font-weight: 500;
+}
+.news-slide > li > .uk-card {
+	box-shadow: none;
+	border:  1px solid rgba(0,0,0,0.075);
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+}
+.uk-logo > img {
+	height: 58px;
+}
+#header.uk-sticky-below {
+	box-shadow: 0 2px 14px 0 rgba(0,0,0,0.07);
+}
+
+
+
+canvas{
+    position: absolute;
+    top: 10em;
+	left: 3em;
+	
+}
