@@ -20,7 +20,7 @@
 			renderer.shadowMap.enabled = true;
 			document.body.appendChild( renderer.domElement );
 			
-			camera.position.set(0, 10, -4 );
+			camera.position.set(7, 5, 0 );
 			
 			hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
 			hemiLight.color.setHSL( 0.6, 1, 0.6 );
@@ -56,10 +56,8 @@
 			
 			controls = new THREE.OrbitControls( camera );
 			controls.addEventListener( 'change', Render );
-			const geometry = new THREE.BoxGeometry( 10, 1, 1 );
-			const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+			
+			aggiungiModello();
 
 
          
