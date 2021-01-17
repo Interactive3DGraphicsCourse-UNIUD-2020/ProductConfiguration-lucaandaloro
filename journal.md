@@ -8,3 +8,8 @@
 - Dopo la ricerca l'idea è quella di sfruttare il modello 3D creato per l'esame di Grafica 3D Creativa, utilizzando il programma Maya. Il modello rappresenta un Vespa Piaggio
 - Ricerca online di configuratori esistenti
 - Impostazione struttura progetto (index.html, journal.md, ecc.)
+
+### 14 Gennaio 2021
+
+- Creazione struttura sito web (Pagine, Footer, Menù, ecc..)
+- 
