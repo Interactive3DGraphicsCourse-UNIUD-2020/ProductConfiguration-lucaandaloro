@@ -7,15 +7,8 @@
 		<link rel="icon" href="images/site/favicon.ico">
 		<!-- CSS FILES -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@latest/dist/css/uikit.min.css">
-		<style>
-			.lead {
-				font-size: 1.175em;
-				font-weight: 300;
-			}
-			.uk-logo img {
-				height: 28px;
-			}
-		</style>
+    <link rel="stylesheet" type="text/css" href="css/stile.css">
+    
 	</head>
 	<body>
     <div class="uk-light wrap uk-background-norepeat uk-background-cover uk-background-center-center uk-cover-container uk-background-secondary">
@@ -24,21 +17,34 @@
 
         <!-- NAV -->
         <div class="uk-position-top">
-          <div class="uk-container uk-container-small">
-            <nav class="uk-navbar-container uk-navbar-transparent" data-uk-navbar>
-              <div class="uk-navbar-left">
-                <div class="uk-navbar-item">
-                  <a class="uk-logo" href=""><img src="images/site/cover-logo.svg" alt="Logo"></a>
-                </div>
-              </div>
-              <div class="uk-navbar-right">
-                <ul class="uk-navbar-nav">
-                  
-                  <li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a></li>
-                </ul>
-              </div>
-            </nav>
-          </div>
+			
+			<!--HEADER-->
+		<header id="header" style="background-color: #fff;" data-uk-sticky="show-on-up: true; animation: uk-animation-fade; media: @l">
+			<div class="uk-container">
+				<nav id="navbar" data-uk-navbar="mode: click;">
+				
+					<div class="uk-navbar-center nav-overlay">
+						<a class="uk-navbar-item uk-logo" href="#" title="Logo"><img src="images/site/n-logo.png" alt="Logo"></a>
+					</div>
+					
+				</nav>
+			</div>
+		</header>
+		<!--/HEADER-->
+		<!-- NAVIGATION -->
+		<div class="uk-container">
+			<nav class="nav-scroll">
+				<ul class="uk-subnav uk-flex uk-flex-between uk-flex-nowrap">
+					<li class="uk-active"><a href="index.html">Home</a></li>
+					<li><a href="configuratore.html">Configuratore</a></li>
+					<li><a href="#">Chi Siamo</a></li>
+					<li><a href="#">Contatti</a></li>
+					<li><a href="#">Report</a></li>
+					
+				</ul>
+			</nav>
+		</div>
+		<!-- /NAVIGATION -->
         </div>
         <!-- /NAV -->
         <!-- TEXT -->
@@ -60,19 +66,7 @@
         <!-- /FOOT -->
       </div>
     </div>
-		<!-- OFFCANVAS -->
-		<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: false">
-			<div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
-				<button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
-				<ul class="uk-nav uk-nav-default">
-          <li><a href=""><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: home"></span> Home</a></li>
-          <li><a href="configuratore.html"><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: settings"></span> Configuratore</a></li>
-
-				</ul>
-			
-			</div>
-		</div>
-		<!-- /OFFCANVAS -->
+	
 		
 		<!-- JS FILES -->
 		<script src="https://cdn.jsdelivr.net/npm/uikit@latest/dist/js/uikit.min.js"></script>
