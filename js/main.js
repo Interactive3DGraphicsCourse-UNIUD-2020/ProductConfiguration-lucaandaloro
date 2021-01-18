@@ -57,7 +57,7 @@
 			controls = new THREE.OrbitControls( camera );
 			controls.addEventListener( 'change', Render );
 			
-			aggiungiModello();
+			aggiungiModello3();
 
 
          
