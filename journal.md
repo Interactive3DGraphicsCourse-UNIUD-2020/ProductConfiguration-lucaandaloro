@@ -9,7 +9,13 @@
 - Ricerca online di configuratori esistenti
 - Impostazione struttura progetto (index.html, journal.md, ecc.)
 
-### 14 Gennaio 2021
+### 16 Gennaio 2021
 
 - Creazione struttura sito web (Pagine, Footer, Menù, ecc..)
-- 
+- Ricerca per capire come caricare il modello 3D
+
+### 17 Gennaio 2021
+
+- Test per capire se utilizzare un modello .obj o .gltf
+- Esportazione del modello da Maya
+- Test per suddividere il modello caricato in diverse parti in three.js
