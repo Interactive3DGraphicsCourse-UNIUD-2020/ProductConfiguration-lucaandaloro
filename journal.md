@@ -19,3 +19,6 @@
 - Test per capire se utilizzare un modello .obj o .gltf
 - Esportazione del modello da Maya
 - Test per suddividere il modello caricato in diverse parti in three.js
+
+### 19 Gennaio 2021
+- Costruzione del configuratore laterale html
