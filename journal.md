@@ -21,4 +21,27 @@
 - Test per suddividere il modello caricato in diverse parti in three.js
 
 ### 19 Gennaio 2021
-- Costruzione del configuratore laterale html
+
+- Costruzione del configuratore laterale in  html
+- Scelta dei materiali e quali sezioni cambiare
+- Inizio impostazioni shaders
+
+### 19 Gennaio 2021
+
+- Ricerca textures online per scocca
+- Ricerca Cube Maps
+- Test con cube Maps
+- Test con textures
+
+### 21 Gennaio 2021
+
+- Materiale glossy/cromato per scocca
+- Materiale con textures arrugginita per scocca
+- Materiale lambertiano azzurro per scocca
+- Definizione delle CubeMaps
+
+### 23 Gennaio 2021
+
+- Ricerca textures e normal map per sella
+- Prove di textures e generazione della normal map per la sella
+
