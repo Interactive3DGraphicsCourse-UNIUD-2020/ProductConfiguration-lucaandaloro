@@ -29,35 +29,37 @@
 			cambiaAmbiente("colosseo");
 
 			ambiente.minFilter = THREE.LinearMipMapLinearFilter;
-				// default: white, 1.0 intensity
-				var lightParameters = {
-					red: 1.0,
-					green: 1.0,
-					blue: 1.0,
-					intensity: 0.5,
-				}
+
+			// default: white, 1.0 intensity
+			var lightParameters = {
+				red: 1.0,
+				green: 1.0,
+				blue: 1.0,
+				intensity: 0.5,
+			}
+
 			// default: gold
 			var cspec = {
-				red: 1.0,
-				green: 0.71,
-				blue: 0.29,
+				red: 1.53,
+				green: 2.04,
+				blue: 2.5,
 				roughness: 0.1
 			}
 
 			var uniforms_color = {
-						cspec:	{ type: "v3", value: new THREE.Vector3() },
+						cspec:	{ type: "v3", value: new THREE.Vector3(1.0, 0.71, 0.29) },
 						roughness: {type: "f", value: 0.1},
 						pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
 						clight:	{ type: "v3", value: new THREE.Vector3() },
-					};
+			};
 
 			var uniforms = {
 				    cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
 				    normalMap:	{ type: "t", value: normalMap},
-						normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-						envMap:	{ type: "t", value: ambiente},
-						roughness: { type: "f", value: 0.5},
-					};
+					normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+					envMap:	{ type: "t", value: ambiente},
+					roughness: { type: "f", value: 0.5},
+			};
 			var uniforms_textures = {
 					specularMap: { type: "t", value: specularMap},
 					diffuseMap:	{ type: "t", value: diffuseMap},
@@ -86,9 +88,9 @@
 
 			var material_color = new THREE.ShaderMaterial({ uniforms: uniforms_color, vertexShader: vs_color, fragmentShader: fs_color });
 
-			var ourMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
+			var material_glossy = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
 			 
-			var materialTextures = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
+			var material_textures = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
 
 			var gui;
 			var stats = new Stats();
@@ -107,13 +109,31 @@
 			}
 
 			function init() {
+				
 				var width = window.innerWidth-500;
 				renderer.setClearColor( 0xf0f0f0 );
 
 				camera.position.set( 0, 20, 30 );
 				scene.add( camera );
 				scene.add(lightMesh);
-				aggiungiModello3(material_color);
+				// Ground
+
+				var plane = new THREE.Mesh(
+					new THREE.PlaneBufferGeometry( 40, 40 ),
+					new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
+				  );
+				  plane.rotation.x = -Math.PI/2;
+				  plane.position.y = -0.5;
+				  scene.add( plane );
+			 
+				  plane.receiveShadow = true;
+				aggiungiModello3(material_color, material_glossy);
+
+				  // Lights
+
+				  scene.add( new THREE.AmbientLight( 0x777777 ) );
+
+				  
 
 				document.body.appendChild( renderer.domElement );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -126,11 +146,11 @@
 
 				window.addEventListener( 'resize', onResize, false );
 
-			  stats.domElement.style.position = 'absolute';
-			  stats.domElement.style.top = '0px';
-			  document.body.appendChild( stats.domElement );
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				document.body.appendChild( stats.domElement );
 
-				ourMaterial.needsUpdate = true;
+				material_glossy.needsUpdate = true;
 
 
 
@@ -166,13 +186,7 @@
 
 			}
 
-			function buildGui() {
-
-				clearGui();
-
-				gui.add(textureParameters,'normalScale').min(-3).max(3);
-				gui.add(textureParameters,'roughness').min(0).max(1);
-				}
+		
 
 			function updateUniforms() {
 					uniforms.normalScale.value = new THREE.Vector2( textureParameters.normalScale, textureParameters.normalScale );
@@ -181,10 +195,10 @@
 			}
 			function updateUniformsColor(){
 				uniforms_color.cspec.value = new THREE.Vector3(cspec.red,cspec.green,cspec.blue);
-				uniforms_color.roughness.value = 0.7;
+				uniforms_color.roughness.value = 0.4;
 				uniforms_color.clight.value = new THREE.Vector3(
 					lightParameters.red * lightParameters.intensity,
-				lightParameters.green * lightParameters.intensity,
+					lightParameters.green * lightParameters.intensity,
 					lightParameters.blue * lightParameters.intensity);
 
 			}
@@ -199,9 +213,9 @@
 				uniforms_textures.specularMap.value = specularMap;
 				uniforms_textures.roughnessMap.value = roughnessMap;
 				uniforms_textures.normalMap.value = normalMap;
-		}
+			}
 
 			init();
-			buildGui();
+			
 			update();
 			render();
