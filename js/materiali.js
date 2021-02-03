@@ -1,21 +1,3 @@
-
-function cambiaMateriale(tipo){
-    while(scene.children.length > 0){ 
-	    scene.remove(scene.children[0]); 
-	}
-    switch(tipo){
-		case 'azzurro':
-			aggiungiModello3(material_color, material_glossy);
-			break;
-		case 'cromato':
-			aggiungiModello3(material_glossy, material_glossy);		
-            break;
-        case 'ruggine':
-            aggiungiModello3(material_textures, material_glossy);	
-            break;   
-	}
-}
-
 function materialWithTextures(){
    
 }
@@ -42,7 +24,7 @@ function getMateriale(materiale){
             });
             break;
     
-            case "gomma":
+        case "gomma":
             var material =  new THREE.MeshPhongMaterial({
                 color: 'rgb(38, 38, 38)',
                 side: THREE.DoubleSide
@@ -50,27 +32,20 @@ function getMateriale(materiale){
             break;
             
         
-            case "mulinoPali":
+        case "mulinoPali":
             var material =  new THREE.MeshPhongMaterial({
                 map: textureLoader('../textures/wood2.jpg'),
                 side: THREE.DoubleSide,
                 
             });
             break;
-            case "nuvola":
+        case "nuvola":
             var material =  new THREE.MeshPhongMaterial({
                 color: "white",
                 side: THREE.DoubleSide,
                 
             });
             break;
-            case "foglie":
-                var material =  new THREE.MeshPhongMaterial({
-                    color: 'rgb(45,80,40)',
-                    side: THREE.DoubleSide,
-                    
-                });
-                break;
     }
     return material;
 }
