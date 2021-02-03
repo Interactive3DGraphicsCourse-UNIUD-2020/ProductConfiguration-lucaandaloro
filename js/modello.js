@@ -1,5 +1,5 @@
 var model;
-function aggiungiModello3(materiale_scocca, materiale_cerchione){
+function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
     
   var loader = new THREE.GLTFLoader();
   loader.useIndices = true;
@@ -118,6 +118,7 @@ function aggiungiModello3(materiale_scocca, materiale_cerchione){
       o.material = getMateriale("gomma");
       }
   });  
+  
              
     } );
 
