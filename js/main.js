@@ -24,7 +24,7 @@
 			vs_textures = document.getElementById("vertex_textures").textContent;
 			fs_textures = document.getElementById("fragment_textures").textContent;	
 
-			var normalMap = loadTexture( "textures/normal.jpg" );
+			var normalMap_casco = loadTexture( "textures/normal.jpg" );
 
 			cambiaAmbiente("colosseo");
 
@@ -38,7 +38,7 @@
 				intensity: 0.5,
 			}
 
-			// default: gold
+			
 			var cspec = {
 				red: 1.53,
 				green: 2.04,
@@ -55,7 +55,7 @@
 
 			var uniforms = {
 				    cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-				    normalMap:	{ type: "t", value: normalMap},
+				    normalMap:	{ type: "t", value: normalMap_casco},
 					normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
 					envMap:	{ type: "t", value: ambiente},
 					roughness: { type: "f", value: 0.5},
@@ -64,16 +64,13 @@
 					specularMap: { type: "t", value: specularMap},
 					diffuseMap:	{ type: "t", value: diffuseMap},
 					roughnessMap:	{ type: "t", value: roughnessMap},
-					normalMap: {type: "t", value: normalMap},
+					normalMap: {type: "t", value: normalMap_ruggine},
 					pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
 					clight:	{ type: "v3", value: new THREE.Vector3() },
 					textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 				};
 
 			
-
-			
-
 			materialExtensions = {
 				shaderTextureLOD: true // set to use shader texture LOD
 			};
@@ -81,10 +78,12 @@
 			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
 			uniforms_color.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+			uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+
 			var diffuseMap = loadTexture( "textures/Metal022_4K_Diffuse.jpg" );
 			var specularMap = loadTexture( "textures/Metal022_4K_Specular.png" );
 			var roughnessMap = loadTexture( "textures/Metal022_4K_Roughness.jpg" );
-			var normalMap = loadTexture( "textures/Metal022_4K_Normal.jpg" );
+			
 
 			var material_color = new THREE.ShaderMaterial({ uniforms: uniforms_color, vertexShader: vs_color, fragmentShader: fs_color });
 
@@ -92,21 +91,13 @@
 			 
 			var material_textures = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
 
-			var gui;
+			
+
+			
+
+		
+
 			var stats = new Stats();
-
-			function loadTexture(file) {
-					var texture = new THREE.TextureLoader().load( file , function ( texture ) {
-
-						texture.minFilter = THREE.LinearMipMapLinearFilter;
-						texture.anisotropy = renderer.getMaxAnisotropy();
-						texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    			         texture.offset.set( 0, 0 );
-						texture.needsUpdate = true;
-						render();
-					} )
-					return texture;
-			}
 
 			function init() {
 				
@@ -121,17 +112,17 @@
 				var plane = new THREE.Mesh(
 					new THREE.PlaneBufferGeometry( 40, 40 ),
 					new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-				  );
-				  plane.rotation.x = -Math.PI/2;
-				  plane.position.y = -0.5;
-				  scene.add( plane );
+				);
+				plane.rotation.x = -Math.PI/2;
+				plane.position.y = -0.5;
+				scene.add( plane );
 			 
-				  plane.receiveShadow = true;
-				aggiungiModello3(material_color, material_glossy);
+				plane.receiveShadow = true;
+				aggiungiModello(material_color, material_glossy);
 
 				  // Lights
 
-				  scene.add( new THREE.AmbientLight( 0x777777 ) );
+				scene.add( new THREE.AmbientLight( 0x777777 ) );
 
 				  
 
@@ -157,11 +148,9 @@
 			}
 
 			function onResize() {
-
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
-
 			}
 
 			function update() {
@@ -178,13 +167,6 @@
 
 			}
 
-			function clearGui() {
-
-				if ( gui ) gui.destroy();
-				gui = new dat.GUI();
-				gui.open();
-
-			}
 
 		
 
@@ -212,7 +194,7 @@
 				uniforms_textures.diffuseMap.value = diffuseMap;
 				uniforms_textures.specularMap.value = specularMap;
 				uniforms_textures.roughnessMap.value = roughnessMap;
-				uniforms_textures.normalMap.value = normalMap;
+				uniforms_textures.normalMap.value = normalMap_ruggine;
 			}
 
 			init();
