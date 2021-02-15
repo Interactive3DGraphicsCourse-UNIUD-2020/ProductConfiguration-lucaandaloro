@@ -12,19 +12,8 @@
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			var scene = new THREE.Scene();
-			var ambiente;
-
-			var diffuseMapSella = loadTexture( "textures/sella/Leather001_2K_Diffuse.png" );
-			var specularMapSella = loadTexture( "textures/sella/Leather001_2K_Specular.png" );
-			var roughnessMapSella = loadTexture( "textures/sella/Leather001_2K_Roughness.png" );
-			var normalMapSella = loadTexture( "textures/sella/Leather001_2K_Normal.png" );
-
-
-
 			
 
-			var normalMap_casco = null;
-			
 			// default: white, 1.0 intensity
 			var lightParameters = {
 				red: 1,
@@ -33,89 +22,12 @@
 				intensity: 1,
 			}
 
-			
-			var cspec = {
-				red: 1.53,
-				green: 2.04,
-				blue: 2.5,
-				roughness: 0.1
-			}
-			var diffuseMap = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
-			var specularMap = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
-			var roughnessMap = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
-			var normalMap = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
-
-			
-			var uniforms_color = {
-						cspec:	{ type: "v3", value: new THREE.Vector3(1.0, 0.71, 0.29) },
-						roughness: {type: "f", value: 0.1},
-						pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-						clight:	{ type: "v3", value: new THREE.Vector3() },
-			};
-
-			var uniforms = {
-				    cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-				    normalMap:	{ type: "t", value: normalMap_casco},
-					normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-					envMap:	{ type: "t", value: ambiente},
-					roughness: { type: "f", value: 0.5},
-			};
-			var uniforms_textures = {
-				specularMap: { type: "t", value: specularMap},
-				diffuseMap:	{ type: "t", value: diffuseMap},
-				roughnessMap:	{ type: "t", value: roughnessMap},
-				normalMap:	{ type: "t", value: normalMap},
-				normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-				pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-				clight:	{ type: "v3", value: new THREE.Vector3() },
-				textureRepeat: { type: "v2", value: new THREE.Vector2(1.0,1.0) }
-			};
-
-			var uniforms_textures_sella = {
-				specularMap: { type: "t", value: specularMapSella},
-				diffuseMap:	{ type: "t", value: diffuseMapSella},
-				roughnessMap:	{ type: "t", value: roughnessMapSella},
-				normalMap:	{ type: "t", value: normalMapSella},
-				normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-				pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-				clight:	{ type: "v3", value: new THREE.Vector3() },
-				textureRepeat: { type: "v2", value: new THREE.Vector2(repeatS_sella,repeatT_sella) }
-			};
-			
-			materialExtensions = {
-				shaderTextureLOD: true // set to use shader texture LOD
-			};
-
 			var lightMesh = new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 16),
 			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
 
-			uniforms_color.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
-			uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
-			uniforms_textures_sella.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
 
-			
-
-			
-			var repeatS_sella = 3;
-			var repeatT_sella = 3;
-			
-			
-
-			var material_color = new THREE.ShaderMaterial({ uniforms: uniforms_color, vertexShader: vs_color, fragmentShader: fs_color });
-
-			var material_glossy = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
-			 
-			var material_textures = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
-
-			var material_textures_sella = new THREE.ShaderMaterial({ uniforms: uniforms_textures_sella, vertexShader: vs_textures, fragmentShader: fs_textures });
-
-			
-
-			
-
-		
-
+			var bool = true;
 			var stats = new Stats();
 
 			function init() {
@@ -140,9 +52,12 @@
 				plane.receiveShadow = true;
 
 				// Richiamo funzioni per setup base
-
-				aggiungiModello(material_color, material_glossy, material_textures_sella);
-				cambiaAmbiente("colosseo");
+				if(bool){
+					caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
+					cambiaAmbiente("colosseo");
+					bool = false;
+				}
+				
 
 				ambiente.minFilter = THREE.LinearMipMapLinearFilter;
 
@@ -166,6 +81,7 @@
 				stats.domElement.style.position = 'absolute';
 				stats.domElement.style.top = '0px';
 				document.body.appendChild( stats.domElement );
+				var material_glossy = getMateriale("glossy");
 
 				material_glossy.needsUpdate = true;
 
@@ -187,8 +103,7 @@
 
 			function render() {
 				updateUniforms();
-				updateUniformsColor();
-				updateUniformsTextures();
+				
 				updateUniformsTexturesSella();
 				renderer.render( scene, camera );
 
@@ -198,32 +113,13 @@
 		
 
 			function updateUniforms() {
-					uniforms.envMap.value = ambiente;
+				uniforms_glossy.envMap.value = ambiente;
 			}
-
-			function updateUniformsColor(){
-				uniforms_color.cspec.value = new THREE.Vector3(cspec.red,cspec.green,cspec.blue);
-				uniforms_color.roughness.value = 0.4;
-				uniforms_color.clight.value = new THREE.Vector3(
-					lightParameters.red * lightParameters.intensity,
-					lightParameters.green * lightParameters.intensity,
-					lightParameters.blue * lightParameters.intensity);
-
-			}
-			function updateUniformsTextures() {
-
-				uniforms_textures.clight.value = new THREE.Vector3(
-				lightParameters.red * lightParameters.intensity,
-				lightParameters.green * lightParameters.intensity,
-				lightParameters.blue * lightParameters.intensity);
-			}
+	
 
 			function updateUniformsTexturesSella() {
 
-				uniforms_textures_sella.clight.value = new THREE.Vector3(
-				lightParameters.red * lightParameters.intensity,
-				lightParameters.green * lightParameters.intensity,
-				lightParameters.blue * lightParameters.intensity);
+				
 				uniforms_textures_sella.textureRepeat.value = new THREE.Vector2( repeatS_sella, repeatT_sella);
 				uniforms_textures_sella.diffuseMap.value = diffuseMapSella;
 				uniforms_textures_sella.specularMap.value = specularMapSella;
