@@ -1,20 +1,3 @@
-			var renderer = new THREE.WebGLRenderer( { antialias: true } );
-			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
-			var controls = new THREE.OrbitControls( camera, renderer.domElement );
-			var scene = new THREE.Scene();
-			var ambiente;
-
-			var textureParameters = {
-				normalScale: 0.0,
-				roughness: 0.3,
-			}
-
-			var textureParameterss = {
-				material: "Wood_StaggeredFloorPlanks",
-				repeatS: 1.0,
-				repeatT: 1.0,
-			}
-
 			//Recupero gli Shader
 
 			vs = document.getElementById("vertex_glossy").textContent;
@@ -23,13 +6,25 @@
 			fs_color = document.getElementById("fragment_color").textContent;
 			vs_textures = document.getElementById("vertex_textures").textContent;
 			fs_textures = document.getElementById("fragment_textures").textContent;	
+			
+			
+			var renderer = new THREE.WebGLRenderer( { antialias: true } );
+			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+			var controls = new THREE.OrbitControls( camera, renderer.domElement );
+			var scene = new THREE.Scene();
+			var ambiente;
 
-			//var normalMap_casco = loadTexture( "textures/normal.jpg" );
+			var diffuseMapSella = loadTexture( "textures/sella/Leather001_2K_Diffuse.png" );
+			var specularMapSella = loadTexture( "textures/sella/Leather001_2K_Specular.png" );
+			var roughnessMapSella = loadTexture( "textures/sella/Leather001_2K_Roughness.png" );
+			var normalMapSella = loadTexture( "textures/sella/Leather001_2K_Normal.png" );
+
+
+
+			
+
 			var normalMap_casco = null;
-			cambiaAmbiente("colosseo");
-
-			ambiente.minFilter = THREE.LinearMipMapLinearFilter;
-
+			
 			// default: white, 1.0 intensity
 			var lightParameters = {
 				red: 1,
@@ -45,7 +40,12 @@
 				blue: 2.5,
 				roughness: 0.1
 			}
+			var diffuseMap = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
+			var specularMap = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
+			var roughnessMap = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
+			var normalMap = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
 
+			
 			var uniforms_color = {
 						cspec:	{ type: "v3", value: new THREE.Vector3(1.0, 0.71, 0.29) },
 						roughness: {type: "f", value: 0.1},
@@ -68,7 +68,7 @@
 				normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
 				pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
 				clight:	{ type: "v3", value: new THREE.Vector3() },
-				textureRepeat: { type: "v2", value: new THREE.Vector2(50,50) }
+				textureRepeat: { type: "v2", value: new THREE.Vector2(1.0,1.0) }
 			};
 
 			var uniforms_textures_sella = {
@@ -85,22 +85,18 @@
 			materialExtensions = {
 				shaderTextureLOD: true // set to use shader texture LOD
 			};
+
 			var lightMesh = new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 16),
 			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
+
 			uniforms_color.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
 			uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
 			uniforms_textures_sella.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
 
-			var diffuseMap = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
-			var specularMap = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
-			var roughnessMap = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
-			var normalMap = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
+			
 
-			var diffuseMapSella = loadTexture( "textures/sella/Leather001_2K_Diffuse.png" );
-			var specularMapSella = loadTexture( "textures/sella/Leather001_2K_Specular.png" );
-			var roughnessMapSella = loadTexture( "textures/sella/Leather001_2K_Roughness.png" );
-			var normalMapSella = loadTexture( "textures/sella/Leather001_2K_Normal.png" );
+			
 			var repeatS_sella = 3;
 			var repeatT_sella = 3;
 			
@@ -111,6 +107,7 @@
 			var material_glossy = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
 			 
 			var material_textures = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
+
 			var material_textures_sella = new THREE.ShaderMaterial({ uniforms: uniforms_textures_sella, vertexShader: vs_textures, fragmentShader: fs_textures });
 
 			
@@ -129,6 +126,7 @@
 				camera.position.set( 10, 7, 10 );
 				scene.add( camera );
 				//scene.add(lightMesh);
+
 				// Ground
 
 				var plane = new THREE.Mesh(
@@ -136,11 +134,17 @@
 					new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
 				);
 				plane.rotation.x = -Math.PI/2;
-				plane.position.y = 0;
+				
 				scene.add( plane );
 			 
 				plane.receiveShadow = true;
+
+				// Richiamo funzioni per setup base
+
 				aggiungiModello(material_color, material_glossy, material_textures_sella);
+				cambiaAmbiente("colosseo");
+
+				ambiente.minFilter = THREE.LinearMipMapLinearFilter;
 
 				// Lights
 
@@ -194,10 +198,9 @@
 		
 
 			function updateUniforms() {
-					uniforms.normalScale.value = new THREE.Vector2( textureParameters.normalScale, textureParameters.normalScale );
-					uniforms.roughness.value = textureParameters.roughness;
 					uniforms.envMap.value = ambiente;
 			}
+
 			function updateUniformsColor(){
 				uniforms_color.cspec.value = new THREE.Vector3(cspec.red,cspec.green,cspec.blue);
 				uniforms_color.roughness.value = 0.4;
@@ -213,11 +216,6 @@
 				lightParameters.red * lightParameters.intensity,
 				lightParameters.green * lightParameters.intensity,
 				lightParameters.blue * lightParameters.intensity);
-				uniforms_textures.textureRepeat.value = new THREE.Vector2( textureParameterss.repeatS, textureParameterss.repeatT);
-				uniforms_textures.diffuseMap.value = diffuseMap;
-				uniforms_textures.specularMap.value = specularMap;
-				uniforms_textures.roughnessMap.value = roughnessMap;
-				uniforms_textures.normalMap.value = normalMap;
 			}
 
 			function updateUniformsTexturesSella() {
