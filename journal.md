@@ -45,3 +45,15 @@
 - Ricerca textures e normal map per sella
 - Prove di textures e generazione della normal map per la sella
 
+### 25 Gennaio 2021
+
+- Aggiunta configuratore html per la sella con relativi materiali
+- Aggiunta configuratrore html per selezione ambiente
+
+### 28 Gennaio 2021
+
+- Modifica del modello 3D con maya per sistemare alcuni particolari della sella
+
+
+
+
