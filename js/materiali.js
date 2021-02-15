@@ -1,6 +1,33 @@
-function materialWithTextures(){
-   
-}
+
+var ambiente;
+// Parte dedicata al glossy
+var normalMap_casco = null;
+var uniforms_glossy = {
+    cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
+    normalMap:	{ type: "t", value: normalMap_casco},
+    normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+    envMap:	{ type: "t", value: ambiente},
+    roughness: { type: "f", value: 0.5},
+};
+
+// Parte dedicata alla sella
+
+var repeatS_sella = 3;
+var repeatT_sella = 3;
+var diffuseMapSella = loadTexture( "textures/sella/Leather001_2K_Diffuse.png" );
+var specularMapSella = loadTexture( "textures/sella/Leather001_2K_Specular.png" );
+var roughnessMapSella = loadTexture( "textures/sella/Leather001_2K_Roughness.png" );
+var normalMapSella = loadTexture( "textures/sella/Leather001_2K_Normal.png" );
+var uniforms_textures_sella = {
+    specularMap: { type: "t", value: specularMapSella},
+    diffuseMap:	{ type: "t", value: diffuseMapSella},
+    roughnessMap:	{ type: "t", value: roughnessMapSella},
+    normalMap:	{ type: "t", value: normalMapSella},
+    normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+    pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+    clight:	{ type: "v3", value: new THREE.Vector3() },
+    textureRepeat: { type: "v2", value: new THREE.Vector2(repeatS_sella,repeatT_sella) }
+};
 
 function getMateriale(materiale){
     switch(materiale){
@@ -36,13 +63,65 @@ function getMateriale(materiale){
             });
             break;
             
+        case "ruggine":
+            var diffuseMap = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
+			var specularMap = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
+			var roughnessMap = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
+			var normalMap = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
+            var uniforms_textures = {
+				specularMap: { type: "t", value: specularMap},
+				diffuseMap:	{ type: "t", value: diffuseMap},
+				roughnessMap:	{ type: "t", value: roughnessMap},
+				normalMap:	{ type: "t", value: normalMap},
+				normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+				pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+				clight:	{ type: "v3", value: new THREE.Vector3() },
+				textureRepeat: { type: "v2", value: new THREE.Vector2(2.0,2.0) }
+			};
+            uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            uniforms_textures.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
+            break;
+        
+        case "glossy":
+            
+            materialExtensions = {
+				shaderTextureLOD: true 
+			};
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_glossy, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
+            break;
+        
+        case "color":
+            var uniforms_color = {
+                cspec:	{ type: "v3", value: new THREE.Vector3(1.53, 2.04, 2.5) },
+                roughness: {type: "f", value: 0.4},
+                pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+                clight:	{ type: "v3", value: new THREE.Vector3() },
+            };
+            uniforms_color.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            uniforms_color.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity,lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_color, vertexShader: vs_color, fragmentShader: fs_color });
+            break;
+        case "sella":
+            uniforms_textures_sella.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            uniforms_textures_sella.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_textures_sella, vertexShader: vs_textures, fragmentShader: fs_textures });
+            
+            break;
+            
     }
     return material;
 }
 
-function textureLoader( file ){
-    var tl = new THREE.TextureLoader();
-    var newTex = tl.load( file );
-    newTex.magFilter = THREE.NearestFilter; 
-    return newTex;
+function loadTexture(file) {
+    var texture = new THREE.TextureLoader().load( file , function ( texture ) {
+
+        texture.minFilter = THREE.LinearMipMapLinearFilter;
+        texture.anisotropy = renderer.getMaxAnisotropy();
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+         texture.offset.set( 0, 0 );
+        texture.needsUpdate = true;
+        render();
+    } )
+    return texture;
 }
