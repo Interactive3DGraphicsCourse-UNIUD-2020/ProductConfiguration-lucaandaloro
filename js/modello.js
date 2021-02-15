@@ -1,5 +1,5 @@
 var model;
-function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
+function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
     
   var loader = new THREE.GLTFLoader();
   loader.useIndices = true;
