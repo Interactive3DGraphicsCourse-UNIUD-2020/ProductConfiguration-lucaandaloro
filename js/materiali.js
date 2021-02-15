@@ -28,14 +28,7 @@ function getMateriale(materiale){
                 blendEquation: THREE.AddEquation
             });
             break;
-        case "grass":
-             var material = new THREE.MeshPhongMaterial({
-                map: textureLoader('textures/erba.jpg'),
-                color: 0x98e070,
-                side: THREE.DoubleSide
-            });
-            break;
-    
+       
         case "gomma":
             var material =  new THREE.MeshPhongMaterial({
                 color: 'rgb(38, 38, 38)',
@@ -43,21 +36,6 @@ function getMateriale(materiale){
             });
             break;
             
-        
-        case "mulinoPali":
-            var material =  new THREE.MeshPhongMaterial({
-                map: textureLoader('../textures/wood2.jpg'),
-                side: THREE.DoubleSide,
-                
-            });
-            break;
-        case "nuvola":
-            var material =  new THREE.MeshPhongMaterial({
-                color: "white",
-                side: THREE.DoubleSide,
-                
-            });
-            break;
     }
     return material;
 }
