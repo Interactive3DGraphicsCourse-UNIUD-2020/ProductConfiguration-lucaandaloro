@@ -5,15 +5,16 @@ function cambiaMateriale(tipo){
     switch(tipo){
 		case 'azzurro':
 			init();
-			aggiungiModello(material_color, material_glossy, material_textures_sella);
+			caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
 			break;
 		case 'cromato':
 			init();
-			aggiungiModello(material_glossy, material_glossy, material_textures_sella);		
+			caricaModello(getMateriale("glossy"), getMateriale("glossy"), getMateriale("sella"));		
             break;
         case 'ruggine':
 			init();
-            aggiungiModello(material_textures, material_glossy, material_textures_sella);	
-            break;   
+            caricaModello(getMateriale("ruggine"), getMateriale("glossy"), getMateriale("sella"));	
+			
+			break;   
 	}
 }
