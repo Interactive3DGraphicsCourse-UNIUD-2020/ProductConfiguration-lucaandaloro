@@ -3,7 +3,7 @@ function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
     
   var loader = new THREE.GLTFLoader();
   loader.useIndices = true;
-    loader.load( "modello_3d/modello_vespa_piaggio.gltf", function ( model ) {
+    loader.load( "modello_3d/prova2.gltf", function ( model ) {
 
       cerchione_ant = model.scene.children[4];
       parafango_ant = model.scene.children[5];
@@ -20,16 +20,16 @@ function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
       bande_pedana = model.scene.children[16];
       freno_posteriore = model.scene.children[17];
       sella = model.scene.children[19];
-      borse_lat = model.scene.children[20];
-      bande_laterali = model.scene.children[21];
-      pedivella_accensione = model.scene.children[22];
-      marmitta = model.scene.children[23];
-      motore = model.scene.children[24];
-      ammortizzatore_posteriore = model.scene.children[25];
-      cerchione_post = model.scene.children[26];
-      pneumatico_anteriore = model.scene.children[27];
-      fanalino_post = model.scene.children[28];
-      //test = model.scene.children[4];
+      borse_lat = model.scene.children[21];
+      bande_laterali = model.scene.children[22];
+      pedivella_accensione = model.scene.children[23];
+      marmitta = model.scene.children[24];
+      motore = model.scene.children[25];
+      ammortizzatore_posteriore = model.scene.children[26];
+      cerchione_post = model.scene.children[27];
+      pneumatico_anteriore = model.scene.children[28];
+      fanalino_post = model.scene.children[29];
+      test = model.scene.children[21];
       
      
     
@@ -104,6 +104,13 @@ function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
           o.material = getMateriale("vetro"); // Add this line
           }
       });
+      fanalino_post.traverse(o => {
+        if (o.isMesh) {
+        o.castShadow = true;
+        o.receiveShadow = true;
+        o.material = getMateriale("vetro_post"); // Add this line
+        }
+    });
       clacson.traverse(o => {
         if (o.isMesh) {
         o.castShadow = true;
@@ -118,6 +125,13 @@ function aggiungiModello(materiale_scocca, materiale_cerchione, material_sella){
       o.material = getMateriale("gomma");
       }
   });  
+  sella.traverse(o => {
+    if (o.isMesh) {
+    o.castShadow = true;
+    o.receiveShadow = true;
+    o.material = material_sella;
+    }
+});  
   
              
     } );

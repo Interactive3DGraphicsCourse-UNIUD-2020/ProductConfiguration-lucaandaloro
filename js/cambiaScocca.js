@@ -4,13 +4,16 @@ function cambiaMateriale(tipo){
 	}
     switch(tipo){
 		case 'azzurro':
-			aggiungiModello(material_color, material_glossy);
+			init();
+			aggiungiModello(material_color, material_glossy, material_textures_sella);
 			break;
 		case 'cromato':
-			aggiungiModello(material_glossy, material_glossy);		
+			init();
+			aggiungiModello(material_glossy, material_glossy, material_textures_sella);		
             break;
         case 'ruggine':
-            aggiungiModello(material_textures, material_glossy);	
+			init();
+            aggiungiModello(material_textures, material_glossy, material_textures_sella);	
             break;   
 	}
 }

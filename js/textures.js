@@ -11,9 +11,3 @@ function loadTexture(file) {
     return texture;
 }
 
-var diffuseMap = loadTexture( "textures/Metal022_4K_Diffuse.jpg" );
-var specularMap = loadTexture( "textures/Metal022_4K_Specular.png" );
-var roughnessMap = loadTexture( "textures/Metal022_4K_Roughness.jpg" );
-var normalMap_ruggine = loadTexture( "textures/Metal022_4K_Normal.jpg" );
-
-var normalMap = loadTexture( "textures/normal.jpg" );

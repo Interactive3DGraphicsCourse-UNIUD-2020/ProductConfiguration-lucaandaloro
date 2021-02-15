@@ -6,6 +6,24 @@ function cambiaAmbiente(tipo){
 		case 'colosseo':
 			ambiente=caricaCubeMap("colosseo");		
 			break;
+		case 'studio':
+			ambiente = new THREE.Color( 0xeeeeee );
+			scene.fog = new THREE.Fog(0xeeeeee, 30, 100);
+			// Ground
+			var groundMaterial = new THREE.MeshPhongMaterial({
+				color: 0xffffff,
+				bumpScale:  0.0005,
+				shininess: 10,
+				specular: 0xffffff,
+				side: THREE.FrontSide
+			});
+			var geometry = new THREE.PlaneBufferGeometry(2000, 2000);
+			ground = new THREE.Mesh(geometry, groundMaterial);
+			ground.castShadow = false;
+			ground.receiveShadow = true;
+			ground.rotation.x = -Math.PI/2;;
+			scene.add(ground);
+		break;
 	}
 	scene.background = ambiente;
 }
