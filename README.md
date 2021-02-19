@@ -75,7 +75,8 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
   - Scheda grafica: Radeon Pro 560X 4 GB / Intel UHD Graphics 630 1536 MB
   - RAM: 16 GB 2400 MHz DDR4
 
-  ## Credits
+## Credits
+
 - **Textures**
   - [cc0textures](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione)
   - Safari
