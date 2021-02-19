@@ -1,80 +1,76 @@
-# ProductVisualization
+# Fiume - Primo progetto di Interactive 3D Graphics
 
-![Image from Ford Configurator, developed in three.js](images/ford-configurator.jpg)
+![Anteprima](immagini/video.gif)
 
-READ CAREFULLY this document BEFORE you start!
+### Studente:
+- Luca Andaloro - 151316
 
-## Prerequisites
+## Descrizione:
 
-- read carefully all slides and notes up to lecture 20 before you start. Try the proposed exercises. 
+L'intero progetto si basa, come da consegna, nel costruire una scena esclusivamente composta da cubi. 
+L'idea è stata quella di creare un ambiente naturale composto da montagne, fiume, vegetazione e una cascata.
+Inizialmente è stato costruito il terreno con una heightmap (spiegherò nel dettagli nela sezione "terreno"), ed sono stati aggiunti diversi elementi tra cui: 
+- Mulino: La casa è stata costruita tramite parallelepipedi. La ruota che compone il mulino è stata creata cambiando il pivot gli elementi che la compongono così da farli posizionare intorno al perno centrale.<br />
+![Immagini Mulino](immagini/mulino.png)
+- Cascata: E' composta da due file di cubi per creare un senso di profondità, sono stati posizionati in modo non allineato così da creare il disordine dell'acqua.<br />
+![Immagine cascata](immagini/cascata.png)
+- Ponte: E' composto da parallelepipedi con angolazioni diverse così da formare un arco.<br />
+![Immagine cascata](immagini/ponte.png)
+- Alberi: Compositi da un tronco e box sovrapposti per simulare l'aspetto di un pino. Vengono aggiunti in modo automatico solo sulla superficie che corrisponde al prato, tenendo conto della distanza tra loro e il numero massimo<br />
+![Immagine cascata](immagini/albero.png)
+- Nuvole: Sono state ideate per essere tutte diverse tra loro, composte da diversi cubi.<br />
+![Immagine cascata](immagini/nuvole.png)
 
-## Hints
+## Terreno:
 
-- Try to work out a basic project which satisfies all requirements well before the deadline and as soon as possible: you will then use the remaining time to refine, improve and polish.
-- If you are stuck for too much time on a problem, ask for help, preferably in the forum.
-- the process is as important as the result. Use this project to learn a workflow, and how to use tools effectively. Experiment, and try to come up with efficient, elegant, and well commented code.
-- commit often in your git repository and with meaningful comments.
-- do not choose too complex products with many materials. 3-4 materials are enough.
+Il terreno è stato generato tramite la seguente Heightmaps:<br />
+![Heightmap](heightmaps/heightmaps.png) <br />
+La foto è stata ritoccata con photoshop per aggiustare la tonalità in alcuni parti (es. la zona dove è stat posizionato il mulino).
+Nelle prima fasi si sono prese in considerazioni diverse opzioni per il posizionamento dei cubi in particolare: 
+1. Mantenere una solo fila di cubi (PROBLEMA: con dislivelli ampi si creavano troppi spazi vuoti);
+2. Creare cubi allungati (Funzionale non bella esteticamente)
+3. Posizionare tanti cubi sovrapposti (PROBLEMA: Il progetto risultava molto pesante e lento, vedere: [Ottimizzazione](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione) ). <br />
+
+E' stata scelta la terza opzione perchè (come già detto) esteticamente la migliore per gestire diversi strati di materiale. In fine è stato studiato un modo per assegnare in base all'altezza e alla posizione il materiale al singolo cubetto.
 
 
-## Goals
+## Ottimizzazione:
 
-The well-known ACME company has asked you to build a product **Web visualizer / configurator** for its new e-commerce site. Before giving you the job, ACME wants to evaluate how faithfully you can visualize and configure products.  ACME sells everything, so you can choose whatever kind of product you want for the demonstration.
+Si è dedicato molto tempo per ottimizzare la parte prestazionale del progetto. Come spiegato nel diario, dopo diverse prove si è deciso di costruire l'intero terreno sovrapponendo diversi cubetti (1X1X1) per poter gestire meglio gli strati del terreno. Utilizzando questa tecnica il numero di cubi è tuttavia aumentato esponenzialmente, quindi per ottimizzare al meglio il progetto si è deciso di non aggiungere alla scena i singoli cubi ma di inserirli all'interno di un array (suddivisi per tipologia del terreno) effettuando un merge finale; così facendo si effetua una sola mesh e un solo add per ogni tipo di terreno. Dopo tali modifiche, l'intero progetto è diventato più leggero da aprire e da visionare mantendo quasi sempre un fps a 60 a parte quando viene effettuato uno zoom elevato. 
+La stessa tecnica è stata utilizzata per la creazione della cascata. 
+E' stato preso in considerazione anche la possbilità di eliminare le facce dei cubi non visibili ma dal momento che il progetto risultava abbastanza fluido si è deciso di dedicare tempo ad altri dettagli.
 
-Your goal is to build a Web application (a HTML page) that:
+## Sviluppi futuri:
 
-- visualizes a product in 3D using three.js, using PBR equations and materials;
-- allows the user to inspect the product (e.g. by orbiting the camera around it), and change some material on it by choosing from a few alternatives.
+Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'animazione della cascata e del fiume e migliorare la gestione delle luci creando scenari di giorno e notte con qulahce punto di luce notturno come per esempio un fuoco.
 
-Try to make it look like a simple, but real portion of an e-commerce site, not a three.js example: choose carefully colors, fonts, images, and icons, also taking inspiration from real web sites. Before starting, search the web for existing 3D configurators. Note down what you like and don't like, and try to produce a result as professional as possible.
+## Struttura:
 
-## Steps (read CAREFULLY)
+* `./index.html` -> File principale dove vengono richiamate tutte le funzioni per la creazione degli elementi
+* `./README.md` -> File che si sta consultando e contiene una breve descrizione del progetto
+* `./journal.md` -> Diario giornaliero dei lavori e test svolti
+* **`./js`** -> Contiene tutti i file js del progetto
+  * `./js/terreno.js` -> Crea la base di tutto il progetto, creando il terreno partendo da un heightmap (scala di grigi) e aggiunge gli alberi in modo automatico
+  * `./js/mulino.js` -> Crea l'intero mulino partendo dalla struttura della casa
+  * `./js/cascata.js` -> Aggiunge una cascata "irregolare" in una posizione specifica della scena
+  * `./js/ponte.js` -> Aggiunge un ponte ad "arco" (composto sempre da rettangoli) in una posizione specifica della scena
+  * `./js/albero.js` -> Contiene la struttura dell'albero che poi viene richiamato da `./js/terreno.js` 
+  * `./js/materiali.js` -> Contiene tutti i materiali di tutto il pregetto che vengono richiesti tramite la funzione `getMateriale()`
+  * `./js/nuvole.js` -> Genera le nuvole
+    * `./js/test` -> Questa cartella contiene file di test o soluzioni alternative per alcuni elementi
+* **`./textures`** -> Contiene tutte le texture utilizzate nel progetto
+* **`./heightmaps`** -> Contiene la heightmap utilizzata per generare il terreno
 
-1. Prepare, and add to the repository, a journal.md file for logging your progress and choices.
 
-2. Choose a product for which: (i) you can easily build a 3D model, or (ii) you can download a 3D model which you have the right to use in non-commercial applications. The model should not be too complex (not more than 100k vertices) and in some format that three.js can read. [Three.js examples](https://threejs.org/examples/) provide a list of loaders for different formats: beware that not all of them work perfectly, and you might have to try with different formats. Preferably, use GLTF, but any other format is ok.
+## Strumenti Utilizzati
+- **Software**
+  - VS Code
+  - Safari
+  - Photoshop
+  - GitHub Desktop
 
-3. Design the lighting for the product. Products in web sites and catalogues are photographed using strategically placed lights that enhance details and shape. For example, [searching google images for product photography lighting](http://www.google.com/images?q=product+photography+lighting) will show you a number of real-world lighting setups that are used for products. In your lighting setup, you can use whatever you want, from punctual lights, to environment map, or light maps, or any combination of them, but you *must include* an environment map.
-
-4. Design the PBR materials for the product. You can use PRB textures found anywhere, or produce them, e.g. with Substance Designer or B2M. If you use textures authored by someone else, just make sure you have the rights for using them in our context (non-commercial application). At least one of the materials must have 2-3 alternatives (e.g. different colors, or materials).
-
-5. Include tone mapping and, if needed, post-processing/color correction.
-
-6. Build the application that renders the chosen 3D model, with the designed lighting setup and materials, and an user interface for selecting the material between the alternatives. You must use shaders written by you, e.g. by extending the shaders we saw in the classroom. Your report needs to describe the kind of BRDF / lights you have implemented.
-
-7. If possible, try to take into account implicit requirements as well. For example, you cannot use textures with file sizes of dozens of megabytes for a Web site; and also, your page should render at least at 30 fps on average smartphones. You will get bonus points for a result that could be deployed to a Web site with few or no modifications.
-
-8. (optional) include any technique that was not explained in the classroom, e.g. some special shader or post-processing technique. This will award you extra points in the evaluation.
-
-9. Write a concise report by overwriting this file.
-
-## Starting code
-
-There is no specific starting code for this project. 
-
-## Documenting and report
-
-For project documentation and reporting, we use the [markdown format](https://daringfireball.net/projects/markdown/syntax), which is also the format of this document. Markdown is a lightweight markup language with plain text formatting syntax which is easy and quick to write, very human-readable, and that can be converted to HTML.
-
-If you need more features than the ones that markdown provides (e.g. writing equations), you can use one of its extensions called [markdeep](https://casual-effects.com/markdeep/).
-
-You are required to document your project in two ways:
-
-- maintain a journal (in a file called journal.md) describing key design decisions, changes, bug symptoms and solutions, including screenshots.
-- create a report (by overwriting this file).
-
-The report should be as brief as possible while covering the following points:
-
-- overall description: what your project is about and the files it uses.
-- results, including images of the scenes created, taken in a way that clearly illustrates that they satisfy the specification.
-- brief explanation of the process that you used to make your scene. Include tools, assets, and planning steps.
-
-## Constraints
-
-If you use textures / 3D models / substances / ..., make sure that you have the rights to include them. For example, search for images that come with a [CC Attribution, ShareAlike or NonCommercial licences](https://creativecommons.org/share-your-work/licensing-types-examples/).
-
-In this project, you are allowed to re-use assets taken elsewhere, but **entirely copying** others' work, even with slight modifications, is forbidden and will have serious consequences beyond the deletion of your project. In any case, mention any source of inspiration in your journal and final report.
-
-## Credits
-
-The image above comes from a [Ford car configurator built in three.js](http://www.ford.com/cars/mustang/customizer/#!/customize).
+- **Hardware:**
+  - Portatile: MacBook Pro (15-inch, 2018)
+  - CPU: 2,6 GHz Intel Core i7 6 core
+  - Scheda grafica: Radeon Pro 560X 4 GB / Intel UHD Graphics 630 1536 MB
+  - RAM: 16 GB 2400 MHz DDR4
