@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Configuratore - Progetto Vespa Piaggio</title>
-		<link rel="icon" href="images/site/favicon.ico">
+		<link rel="icon" href="images/site/Vespa.png">
 		<!-- CSS FILES -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@latest/dist/css/uikit.min.css">
     		<link rel="stylesheet" type="text/css" href="css/stile.css">
@@ -21,6 +21,7 @@
 		<script src="js/cambiaAmbiente.js"></script>
 		<script src="js/cambiaScocca.js"></script>
 		<script src="js/cambiaSella.js"></script>
+		<script src="js/cambiaManopola.js"></script>
 	
 		
 			<!-- shaders -->
@@ -301,7 +302,7 @@
 			<div class="uk-container">
 				<nav id="navbar" data-uk-navbar="mode: click;">
 					<div class="uk-navbar-center nav-overlay">
-						<a class="uk-navbar-item uk-logo" href="#" title="Logo"><img src="images/site/n-logo.png" alt="Logo"></a>
+						<a class="uk-navbar-item uk-logo" href="#" title="Logo"><img src="images/site/Vespa.png" alt="Logo"></a>
 					</div>
 					
 				</nav>
@@ -314,8 +315,8 @@
 		<div class="uk-container">
 			<nav class="nav-scroll">
 				<ul class="uk-subnav uk-flex uk-flex-between uk-flex-nowrap">
-					<li class="uk-active"><a href="index.html">Home</a></li>
-					<li><a href="configuratore.html">Configuratore</a></li>
+					<li><a href="index.html">Home</a></li>
+					<li class="uk-active"><a href="configuratore.html">Configuratore</a></li>
 					<li><a href="#">Chi Siamo</a></li>
 					<li><a href="#">Contatti</a></li>
 					<li><a href="#">Report</a></li>
@@ -344,10 +345,16 @@
 							<img class="uk-border-rounded" src="images/site/configuratore/pelle.jpg" width="90px" onClick="cambiaMaterialeSella('Leather001_2K')">
 							<img class="uk-border-rounded" src="images/site/configuratore/stoffa.png" width="90px"  onClick="cambiaMaterialeSella('Fabric030_2K')">
 							<img class="uk-border-rounded" src="images/site/configuratore/tessuto.png" width="90px" onClick="cambiaMaterialeSella('Fabric008_2K')">
+							<h5 class="uk-heading-line"><span>Seleziona materiale manopola</span></h5>
+							<img class="uk-border-rounded" src="images/site/configuratore/manopola_nera.png" width="90px" onClick="cambiaMaterialeManopola('Tiles072_2K')">
+							<img class="uk-border-rounded" src="images/site/configuratore/manopola_bianca.png" width="90px"  onClick="cambiaMaterialeManopola('TexturesCom')">
+							<img class="uk-border-rounded" src="images/site/configuratore/tessuto.png" width="90px" onClick="cambiaMaterialeManopola('Fabric008_2K')">
 							<h5 class="uk-heading-line"><span>Seleziona colore cerchi</span></h5>
 							<h5 class="uk-heading-line"><span>Seleziona sfondo</span></h5>
-							<img class="uk-border-rounded" src="images/site/configuratore/background_white.jpg" width="140" onClick="cambiaAmbiente('studio')">
-							<img class="uk-border-rounded" src="images/site/configuratore/backgroud_garage.jpg" width="140" height="100px" onClick="cambiaAmbiente('colosseo')">
+							<img class="uk-border-rounded" src="images/site/configuratore/background_bosco.png" width="90" onClick="cambiaAmbiente('bosco')">
+							<img class="uk-border-rounded" src="images/site/configuratore/background_mare.png" width="90"  onClick="cambiaAmbiente('mare')">
+							<img class="uk-border-rounded" src="images/site/configuratore/ruggine.jpg" width="90" onClick="cambiaAmbiente('piazza')">
+							
 							
 						</div>
 						<div class="uk-tile uk-tile-small uk-tile-muted uk-border-rounded">
