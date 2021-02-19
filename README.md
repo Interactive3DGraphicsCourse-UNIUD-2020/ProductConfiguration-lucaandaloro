@@ -64,27 +64,29 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
 
 ## Strumenti Utilizzati
 - **Software**
+  - Maya
   - VS Code
   - Safari
   - Photoshop
   - GitHub Desktop
+  
 
 - **Hardware:**
   - Portatile: MacBook Pro (15-inch, 2018)
   - CPU: 2,6 GHz Intel Core i7 6 core
   - Scheda grafica: Radeon Pro 560X 4 GB / Intel UHD Graphics 630 1536 MB
   - RAM: 16 GB 2400 MHz DDR4
+
+
+- **Framework:**
+  - [Ulkit](https://getuikit.com)
+ 
 
 ## Credits
 
 - **Textures**
-  - [cc0textures](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione)
-  - Safari
-  - Photoshop
-  - GitHub Desktop
+  - [cc0textures](https://www.cc0textures.com)
+  - [textures.com](https://www.textures.com)
 
-- **Hardware:**
-  - Portatile: MacBook Pro (15-inch, 2018)
-  - CPU: 2,6 GHz Intel Core i7 6 core
-  - Scheda grafica: Radeon Pro 560X 4 GB / Intel UHD Graphics 630 1536 MB
-  - RAM: 16 GB 2400 MHz DDR4
+- **Cubemaps:**
+  - [humus](http://www.humus.name/)
