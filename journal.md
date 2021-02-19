@@ -54,6 +54,19 @@
 
 - Modifica del modello 3D con maya per sistemare alcuni particolari della sella
 
+### 4 Febbraio 2021
+
+- Prove con posizionamento luci
+- Test con luci diverse
+
+### 6 Febbraio 2021
+
+- Perfezionamento delle luci
+
+### 7 Febbraio 2021
+
+- Aggiunta dei dettagli nel modello su maya
+- Aggiunta delle textures e materiali per le nuovi parti del modello
 
 
 
