@@ -9,7 +9,7 @@
 			
 			
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
-			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+			var camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			var scene = new THREE.Scene();
 			
@@ -35,7 +35,7 @@
 				var width = window.innerWidth-500;
 				renderer.setClearColor( 0xf0f0f0 );
 
-				camera.position.set( 10, 7, 10 );
+				camera.position.set( 6, 5, 6 );
 				scene.add( camera );
 				//scene.add(lightMesh);
 
@@ -47,14 +47,14 @@
 				);
 				plane.rotation.x = -Math.PI/2;
 				
-				scene.add( plane );
+				//scene.add( plane );
 			 
 				plane.receiveShadow = true;
 
 				// Richiamo funzioni per setup base
 				if(bool){
 					caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
-					cambiaAmbiente("colosseo");
+					cambiaAmbiente("mare");
 					bool = false;
 				}
 				
@@ -105,6 +105,7 @@
 				updateUniforms();
 				
 				updateUniformsTexturesSella();
+				updateUniformsTexturesManopola();
 				renderer.render( scene, camera );
 
 			}
@@ -125,6 +126,16 @@
 				uniforms_textures_sella.specularMap.value = specularMapSella;
 				uniforms_textures_sella.roughnessMap.value = roughnessMapSella;
 				uniforms_textures_sella.normalMap.value = normalMapSella;
+			}
+
+			function updateUniformsTexturesManopola() {
+
+				
+				uniforms_textures_manopola.textureRepeat.value = new THREE.Vector2( repeatS_manopola, repeatT_manopola);
+				uniforms_textures_manopola.diffuseMap.value = diffuseMapManopola;
+				uniforms_textures_manopola.specularMap.value = specularMapManopola;
+				uniforms_textures_manopola.roughnessMap.value = roughnessMapManopola;
+				uniforms_textures_manopola.normalMap.value = normalMapManopola;
 			}
 
 			init();
