@@ -46,20 +46,20 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
 
 ## Struttura:
 
-* `./index.html` -> File principale dove vengono richiamate tutte le funzioni per la creazione degli elementi
 * `./README.md` -> File che si sta consultando e contiene una breve descrizione del progetto
+* `./index.html` -> Homepage del sito web
+* `./configuratore.html` ->  File  del configuratore, contiente tutti Shaders
 * `./journal.md` -> Diario giornaliero dei lavori e test svolti
 * **`./js`** -> Contiene tutti i file js del progetto
-  * `./js/terreno.js` -> Crea la base di tutto il progetto, creando il terreno partendo da un heightmap (scala di grigi) e aggiunge gli alberi in modo automatico
-  * `./js/mulino.js` -> Crea l'intero mulino partendo dalla struttura della casa
-  * `./js/cascata.js` -> Aggiunge una cascata "irregolare" in una posizione specifica della scena
-  * `./js/ponte.js` -> Aggiunge un ponte ad "arco" (composto sempre da rettangoli) in una posizione specifica della scena
-  * `./js/albero.js` -> Contiene la struttura dell'albero che poi viene richiamato da `./js/terreno.js` 
-  * `./js/materiali.js` -> Contiene tutti i materiali di tutto il pregetto che vengono richiesti tramite la funzione `getMateriale()`
-  * `./js/nuvole.js` -> Genera le nuvole
-    * `./js/test` -> Questa cartella contiene file di test o soluzioni alternative per alcuni elementi
-* **`./textures`** -> Contiene tutte le texture utilizzate nel progetto
-* **`./heightmaps`** -> Contiene la heightmap utilizzata per generare il terreno
+  * `./js/main.js` ->  File principale dove vengono richiamate tutte le funzioni per la creazione degli elementi
+  * `./js/modello.js` -> Carica l'intero modello 3D, suddivide le varie parti e assegna i materiali
+  * `./js/cambiaAmbiente.js` -> Contiene la funzione per cambiare la environment map
+  * `./js/cambiaManopola.js` -> Contiene la funzione per cambiare i materiali della manopola
+  * `./js/cambiaScocca.js` -> Contiene la funzione per cambiare i materiali della scocca
+  * `./js/cambiaSella.js` -> Contiene la funzione per cambiare i materiali della sella
+  * `./js/materiali.js` -> Contiene tutti i materiali di tutto il progetto che vengono richiesti tramite la funzione `getMateriale()`
+* **`./textures`** -> Contiene tutte le texture utilizzate nel progetto (Sia le cubemaps, che le varie textures)
+* **`./modello_3d`** -> Contiene i file `.bin` e `.gltf` del modello 3D
 
 
 ## Strumenti Utilizzati
