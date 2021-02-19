@@ -1,4 +1,4 @@
-# Fiume - Primo progetto di Interactive 3D Graphics
+# Configuratore Vespa - Secondo progetto di Interactive 3D Graphics
 
 ![Anteprima](immagini/video.gif)
 
@@ -7,8 +7,8 @@
 
 ## Descrizione:
 
-L'intero progetto si basa, come da consegna, nel costruire una scena esclusivamente composta da cubi. 
-L'idea è stata quella di creare un ambiente naturale composto da montagne, fiume, vegetazione e una cascata.
+L'intero progetto si basa, come da consegna, nel costruire una configuratore di un prodotto a propria scelta. 
+L'idea è stata quella di creare un configuratore per una vespa Piaggio, utilizzando un modello 3D sviluppato per il progetto di Grafica 3D creativa.
 Inizialmente è stato costruito il terreno con una heightmap (spiegherò nel dettagli nela sezione "terreno"), ed sono stati aggiunti diversi elementi tra cui: 
 - Mulino: La casa è stata costruita tramite parallelepipedi. La ruota che compone il mulino è stata creata cambiando il pivot gli elementi che la compongono così da farli posizionare intorno al perno centrale.<br />
 ![Immagini Mulino](immagini/mulino.png)
@@ -65,6 +65,19 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
 ## Strumenti Utilizzati
 - **Software**
   - VS Code
+  - Safari
+  - Photoshop
+  - GitHub Desktop
+
+- **Hardware:**
+  - Portatile: MacBook Pro (15-inch, 2018)
+  - CPU: 2,6 GHz Intel Core i7 6 core
+  - Scheda grafica: Radeon Pro 560X 4 GB / Intel UHD Graphics 630 1536 MB
+  - RAM: 16 GB 2400 MHz DDR4
+
+  ## Credits
+- **Textures**
+  - [cc0textures](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione)
   - Safari
   - Photoshop
   - GitHub Desktop
