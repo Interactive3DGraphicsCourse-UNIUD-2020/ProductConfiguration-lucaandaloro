@@ -68,5 +68,15 @@
 - Aggiunta dei dettagli nel modello su maya
 - Aggiunta delle textures e materiali per le nuovi parti del modello
 
+### 17 Febbraio 2021
+
+- Aggiunta delle luci
+- Correzione delle luci e le ombre
+
+### 18 Febbraio 2021
+
+- Aggiunta di un ulteriore ambiente, "lo studio"
+- Correzione delle luci e le ombre
+
 
 
