@@ -1,37 +1,48 @@
 function cambiaAmbiente(tipo){
 	switch(tipo){
-		case 'piazza':
-			ambiente = caricaCubeMap("piazza");
-			break;
-		case 'colosseo':
-			ambiente=caricaCubeMap("colosseo");		
-			break;
 		case 'bosco':
-			ambiente=caricaCubeMap("bosco");		
+			if(ambiente == null){
+				scene.remove(scene.getObjectByName("cube"));
+				scene.remove(scene.getObjectByName("plane"));
+			}
+			ambiente=caricaCubeMap("bosco");
+				
 			break;
 		case 'studio':
-			ambiente = new THREE.Color( 0xeeeeee );
-			scene.fog = new THREE.Fog(0xeeeeee, 30, 100);
-			// Ground
-			var groundMaterial = new THREE.MeshPhongMaterial({
-				color: 0xffffff,
-				bumpScale:  0.0005,
-				shininess: 10,
-				specular: 0xffffff,
-				side: THREE.FrontSide
-			});
-			var geometry = new THREE.PlaneBufferGeometry(2000, 2000);
-			ground = new THREE.Mesh(geometry, groundMaterial);
-			ground.castShadow = false;
-			ground.receiveShadow = true;
-			ground.rotation.x = -Math.PI/2;;
-			scene.add(ground);
+			if (materiale == "colore" || materiale == "ruggine"){
+				//Creo lo studio
+				//Pareti
+				var geometry = new THREE.BoxGeometry(50, 50, 50);
+				var material = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
+				var cube = new THREE.Mesh(geometry, material);
+				cube.name = "cube";
+				scene.add(cube);
+
+				//Pavimento
+				var geo = new THREE.PlaneGeometry(1000, 1000, 100, 100);
+				var mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
+				var plane = new THREE.Mesh(geo, mat);
+				plane.rotateX(- Math.PI / 2);
+				scene.add(plane);
+				plane.castShadow = false;
+				plane.receiveShadow = true;
+				plane.name = "plane";
+				ambiente = null;
+			}else{
+				alert("L'ambiente studio può essere selzionato solo con il materiale colorato");
+			}
+			
 		break;
 		case 'mare':
 			ambiente=caricaCubeMap("mare");		
 		break;
 		case 'garage':
+			if(ambiente == null){
+				scene.remove(scene.getObjectByName("cube"));
+				scene.remove(scene.getObjectByName("plane"));
+			}
 			ambiente=caricaCubeMap("garage");
+			
 		break;	
 
 	}
