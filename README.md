@@ -23,19 +23,45 @@ Inoltre è possibile cambiare l'ambientazione dello sfondo, scegliendo tra:
 ## Modello:
 
 Il modello è stato interamente autocostruito durante il corso di Grafica 3D creativa e migliorato/personalizzato per questo progetto.<br />
-E' composto da molte parti diverse, inizialamente questo ha portato a un sovvracaricamento di gestione/creazione dei materiali, ma con lo svilupparsi del progetto il problema si è trasformato in un aspetto positivo perchè scosì facendo si ha la possibilità di personalizzare molto il prodotto.
+E' composto da molte parti diverse, inizialamente questo ha portato a un sovvracaricamento di gestione/creazione dei materiali, ma con lo svilupparsi del progetto il problema si è trasformato in un aspetto positivo perchè scosì facendo si ha la possibilità di personalizzare sotto diversi aspetti il prodotto.
 ![Maya](images/maya.png) <br />
 Dopo diversi test il modello è stato esportato e importato nella scena nel formato gltf tramite un plugin extra di Maya, [Verge3D](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione)
 
-## Ottimizzazione:
+## Materiali:
 
-Si è dedicato molto tempo per ottimizzare la parte prestazionale del progetto. Come spiegato nel diario, dopo diverse prove si è deciso di costruire l'intero terreno sovrapponendo diversi cubetti (1X1X1) per poter gestire meglio gli strati del terreno. Utilizzando questa tecnica il numero di cubi è tuttavia aumentato esponenzialmente, quindi per ottimizzare al meglio il progetto si è deciso di non aggiungere alla scena i singoli cubi ma di inserirli all'interno di un array (suddivisi per tipologia del terreno) effettuando un merge finale; così facendo si effetua una sola mesh e un solo add per ogni tipo di terreno. Dopo tali modifiche, l'intero progetto è diventato più leggero da aprire e da visionare mantendo quasi sempre un fps a 60 a parte quando viene effettuato uno zoom elevato. 
-La stessa tecnica è stata utilizzata per la creazione della cascata. 
-E' stato preso in considerazione anche la possbilità di eliminare le facce dei cubi non visibili ma dal momento che il progetto risultava abbastanza fluido si è deciso di dedicare tempo ad altri dettagli.
+All'interno del progetto sono state implementate tre diverse BRDF, che vengono sfruttate in base alla selezione dell'utente, e sono: 
+
+- Glossy reflection mapping con Cubemap
+- Textures con Diffuse, Normal, Roughness e Specular
+- Lambertiana con microfacet per i colori
+
+Inoltre sono stati creati alcuni materiali senza shaders per le parti che non possono essere personalizzati dell'utente, come per esempio i vetrini del fanale anteriore e posteriore.
+
+## Luci:
+
+Le luci che illuminano "artificalmente" l'oggetto inserite sono 5:
+
+- Luce principale che viene utilizzate anche all'interno delle BRDF con textures e Lambertiana
+- 3 luci spotlight che vengono utilizzate nell'ambiente Studio per illuminarlo, creare le ombre e dare un effetto set fotografico
+- Luce ambientlight che può essere abilitata e disabilitata deall'utente, per sempio per vedere meglio alcuni particolari della Vespa
+
+Invece la tecnica utilizzata per illuminare "naturalmente" l'oggetto sono:
+
+- L'utillizo delle Envoriment Maps con ambientazione per la parte di Glossy
+- Invece per la parte di Studio una Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale)
+
+## Ambienti:
+
+Per la parte degli ambienti durante lo sviluppo del progetto sono state effettaute diverse prove per trovare l'ambientazione giusta, l'idea era quella di posizionare la vespa  in un studio fotografico o salone di esposizione.
+Infine sono state scelte tre ambientazioni diverse:
+
+- Studio: è stato creato uno studio "artificale" trammi un cubo viene ricreata la stanza e un piano il pavimento di appoggio
+- Garage: utilizzado le cubemaps è stato creato un ambiente a forma di garage
+- Giardino: utilizzado sempre le cubemaps è stato creata una ambientazione in un giardino 
 
 ## Sviluppi futuri:
 
-Il progetto potrebbe essere ampliato aggiungendo nuove personalizzazioni per altri componenti, come per esempio la possibilità di personalizzare i cerchi.
+Il progetto potrebbe essere ampliato aggiungendo nuove personalizzazioni per altri componenti, come per esempio la possibilità di personalizzare i cerchi, le gomme, aggiungere colori etc...
 
 ## Struttura:
 
