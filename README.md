@@ -1,6 +1,6 @@
 # Configuratore Vespa - Secondo progetto di Interactive 3D Graphics
 
-![Anteprima](immagini/video.gif)
+![Anteprima](images/esempio.gif)
 
 ### Studente:
 - Luca Andaloro - 151316
