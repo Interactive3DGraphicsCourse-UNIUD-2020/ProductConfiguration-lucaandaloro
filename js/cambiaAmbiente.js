@@ -1,9 +1,10 @@
 function cambiaAmbiente(tipo){
 	switch(tipo){
 		case 'bosco':
-			if(ambiente == null){
+			if(studio){
 				scene.remove(scene.getObjectByName("cube"));
 				scene.remove(scene.getObjectByName("plane"));
+				studio = false;
 			}
 			ambiente=caricaCubeMap("bosco");
 				
@@ -27,9 +28,11 @@ function cambiaAmbiente(tipo){
 				plane.castShadow = false;
 				plane.receiveShadow = true;
 				plane.name = "plane";
-				ambiente = null;
+				ambiente=caricaCubeMap("irradiancemap");
+				studio = true;
 			}else{
-				alert("L'ambiente studio può essere selzionato solo con il materiale colorato");
+				
+				alert("L'ambiente studio non può essere selezionato con il materiale glossy");
 			}
 			
 		break;
@@ -37,9 +40,10 @@ function cambiaAmbiente(tipo){
 			ambiente=caricaCubeMap("mare");		
 		break;
 		case 'garage':
-			if(ambiente == null){
+			if(studio){
 				scene.remove(scene.getObjectByName("cube"));
 				scene.remove(scene.getObjectByName("plane"));
+				studio = false;
 			}
 			ambiente=caricaCubeMap("garage");
 			
@@ -53,7 +57,7 @@ function caricaCubeMap(path){
 	// load cube map for background
 	var loader = new THREE.CubeTextureLoader();
 	loader.setPath( 'textures/cubemap/'+path+"/" );
-	if(path=="bosco" || path == "garage"){
+	if(path=="bosco" || path == "garage" || path == "irradiancemap"){
 		var textureCube = loader.load( [
 			'posx.png', 'negx.png',
 			'posy.png', 'negy.png',

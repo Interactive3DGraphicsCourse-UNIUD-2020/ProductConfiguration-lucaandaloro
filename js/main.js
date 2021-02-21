@@ -13,16 +13,15 @@
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			var scene = new THREE.Scene();
 			var materiale = "colore";
+			var studio = true;
+			var prezzo = 1300;
+			var width = window.innerWidth-500;
+			var height = window.innerHeight -200;
 			
 			
-
-			// default: white, 1.0 intensity
-			var lightParameters = {
-				red: 1,
-				green: 1,
-				blue: 1,
-				intensity: 1,
-			}
+			 
+	
+			// Luci
 
 			var lightMesh = new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 16),
 			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
@@ -30,13 +29,10 @@
 
 			var light = new THREE.SpotLight(0xffffff, 0.8, 100, Math.PI / 2, 0.2, 2);
 			light.position.set(0.0, 25.0, -10.0);
-			
 		
 			var light1 = new THREE.SpotLight(0xd1e264, 0.8, 100, Math.PI / 3, 1, 8);
 			light1.position.set(22.0, 19.0, -11.0);
 			
-		
-		
 			var light2 = new THREE.SpotLight(0x0f4c81, 0.8, 100, Math.PI / 3, 0.9, 6);
 			light2.position.set(-28.0, 15.0, 3.0);
 			
@@ -45,10 +41,14 @@
 
 			function init() {
 				
-				var width = window.innerWidth-500;
+				
 				renderer.setClearColor( 0xf0f0f0 );
 
 				camera.position.set( 6, 5, 6 );
+				camera.up = new THREE.Vector3(0,1,0);
+				camera.lookAt(new THREE.Vector3(70,20,0));
+				
+		
 				scene.add( camera );
 				//scene.add(lightMesh);
 				scene.add(light);
@@ -68,11 +68,12 @@
 				 light2.shadow.mapSize.width = 1024;
 				 light2.shadow.mapSize.height = 1024;
 
+				
 
 				// Richiamo funzioni per setup base
 				if(bool){
 					caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
-					cambiaAmbiente("garage");
+					cambiaAmbiente("studio");
 					bool = false;
 				}
 				
@@ -81,15 +82,9 @@
 				}
 				
 
-				// Lights
-
-				scene.add( new THREE.AmbientLight( 0x777777 ) );
-
-				  
-
 				document.body.appendChild( renderer.domElement );
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( width, window.innerHeight );
+				renderer.setSize( width, height );
 
 				controls.minDistance = 1;
 				controls.maxDistance = 30;
@@ -111,7 +106,7 @@
 			}
 
 			function onResize() {
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( width, height  );
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
 			}
@@ -119,14 +114,13 @@
 			function update() {
 				requestAnimationFrame( update );
 				stats.update();
+				updateUniformsGlossy();
+				updateUniformsTexturesSella();
+				updateUniformsTexturesManopola();
 				render();
 			}
 
 			function render() {
-				updateUniforms();
-				
-				updateUniformsTexturesSella();
-				updateUniformsTexturesManopola();
 				renderer.render( scene, camera );
 
 			}
@@ -134,7 +128,7 @@
 
 		
 
-			function updateUniforms() {
+			function updateUniformsGlossy() {
 				uniforms_glossy.envMap.value = ambiente;
 			}
 	
@@ -159,6 +153,7 @@
 				uniforms_textures_manopola.normalMap.value = normalMapManopola;
 			}
 
+			
 			init();
 			
 			update();

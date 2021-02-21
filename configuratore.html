@@ -22,6 +22,9 @@
 		<script src="js/cambiaScocca.js"></script>
 		<script src="js/cambiaSella.js"></script>
 		<script src="js/cambiaManopola.js"></script>
+		<script src="js/luceAmbientale.js"></script>
+		
+		
 	
 		
 			<!-- shaders -->
@@ -348,28 +351,24 @@
 							<h5 class="uk-heading-line"><span>Seleziona materiale manopola</span></h5>
 							<img class="uk-border-rounded" src="images/site/configuratore/manopola_nera.png" width="90px" onClick="cambiaMaterialeManopola('Tiles072_2K')">
 							<img class="uk-border-rounded" src="images/site/configuratore/manopola_bianca.png" width="90px"  onClick="cambiaMaterialeManopola('TexturesCom')">
-							<img class="uk-border-rounded" src="images/site/configuratore/tessuto.png" width="90px" onClick="cambiaMaterialeManopola('Fabric008_2K')">
-							<h5 class="uk-heading-line"><span>Seleziona colore cerchi</span></h5>
+							
+						
 							<h5 class="uk-heading-line"><span>Seleziona sfondo</span></h5>
-							<img class="uk-border-rounded" src="images/site/configuratore/background_garage.png" width="90" onClick="cambiaAmbiente('garage')">
-							<img class="uk-border-rounded" src="images/site/configuratore/background_bosco.png" width="90" onClick="cambiaAmbiente('bosco')">
-							<img class="uk-border-rounded" src="images/site/configuratore/background_mare.png" width="90"  onClick="cambiaAmbiente('studio')">
+							<img class="uk-border-rounded" uk-tooltip="title: Studio; pos: bottom" src="images/site/configuratore/background_studio.png" width="90"  onClick="cambiaAmbiente('studio')">
+							<img class="uk-border-rounded" uk-tooltip="title: Garage; pos: bottom"  src="images/site/configuratore/background_garage.png" width="90" onClick="cambiaAmbiente('garage')">
+							<img class="uk-border-rounded" uk-tooltip="title: Giardino; pos: bottom"  src="images/site/configuratore/background_bosco.png" width="90" onClick="cambiaAmbiente('bosco')">
 							
-							
-							
+							<h5 class="uk-heading-line"><span>Accendi/spegni luce ambientale:</span></h5>
+							<label class="uk-switch" for="on-1">
+								<input type="checkbox" id="on-1" onClick="aggiungiLuceAmbientale('')">
+								<div class="uk-switch-slider uk-switch-on-off round"></div>
+							  </label>
+							  <hr class="uk-divider-small">
+							<h1 class="uk-heading-medium" id="prezzo">€ 1300</h1>
+							<button class="uk-button uk-button-primary">Acquista</button>
 						</div>
-						<div class="uk-tile uk-tile-small uk-tile-muted uk-border-rounded">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in.
-						</div>
-						<div class="uk-tile uk-tile-small uk-tile-muted uk-border-rounded">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in.
-						</div>
+						
+						
 					</div>
 				</div>
 			</div>

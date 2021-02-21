@@ -1,6 +1,13 @@
 
 var ambiente;
-// Parte dedicata al glossy
+// default: white, 1.0 intensity
+var lightParameters = {
+    red: 1,
+    green: 1,
+    blue: 1,
+    intensity: 1,
+}
+// Parte dedicata al glossy scocca
 
 var normalMap_casco = null;
 var uniforms_glossy = {
@@ -110,6 +117,8 @@ function getMateriale(materiale){
 			};
             var material = new THREE.ShaderMaterial({ uniforms: uniforms_glossy, vertexShader: vs, fragmentShader: fs, extensions: materialExtensions });
             break;
+
+        
         
         case "color":
             var uniforms_color = {

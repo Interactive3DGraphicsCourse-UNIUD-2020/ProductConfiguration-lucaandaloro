@@ -72,11 +72,24 @@
 
 - Aggiunta delle luci
 - Correzione delle luci e le ombre
+- Inizio stesura file readme.md
 
 ### 18 Febbraio 2021
 
 - Aggiunta di un ulteriore ambiente, "lo studio"
 - Correzione delle luci e le ombre
+
+### 20 Febbraio 2021
+
+- Aggiunta opzione per abilitare una luce ambientale
+
+### 21 Febbraio 2021
+
+- Correzioni finali 
+- fine stesura file readme.md
+
+
+
 
 
 
