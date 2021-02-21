@@ -54,7 +54,7 @@
 				// Richiamo funzioni per setup base
 				if(bool){
 					caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
-					cambiaAmbiente("mare");
+					cambiaAmbiente("garage");
 					bool = false;
 				}
 				
