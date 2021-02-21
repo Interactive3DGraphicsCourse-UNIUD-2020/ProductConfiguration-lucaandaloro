@@ -90,3 +90,4 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
 
 - **Cubemaps:**
   - [humus](http://www.humus.name/)
+  - [hdrihaven](https://hdrihaven.com)
