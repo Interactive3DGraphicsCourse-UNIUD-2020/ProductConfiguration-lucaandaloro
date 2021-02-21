@@ -30,6 +30,10 @@ function cambiaAmbiente(tipo){
 		case 'mare':
 			ambiente=caricaCubeMap("mare");		
 		break;
+		case 'garage':
+			ambiente=caricaCubeMap("garage");
+		break;	
+
 	}
 	scene.background = ambiente;
 }
@@ -38,7 +42,7 @@ function caricaCubeMap(path){
 	// load cube map for background
 	var loader = new THREE.CubeTextureLoader();
 	loader.setPath( 'textures/cubemap/'+path+"/" );
-	if(path=="bosco"){
+	if(path=="bosco" || path == "garage"){
 		var textureCube = loader.load( [
 			'posx.png', 'negx.png',
 			'posy.png', 'negy.png',
