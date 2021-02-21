@@ -1,20 +1,20 @@
 function cambiaMateriale(tipo){
-    while(scene.children.length > 0){ 
-	    scene.remove(scene.children[0]); 
-	}
+    scene.remove(scene.getObjectByName("modello"));
     switch(tipo){
 		case 'azzurro':
-			init();
+			
 			caricaModello(getMateriale("color"), getMateriale("glossy"), getMateriale("sella"));
+			materiale = "colore";
 			break;
 		case 'cromato':
-			init();
-			caricaModello(getMateriale("glossy"), getMateriale("glossy"), getMateriale("sella"));		
+			
+			caricaModello(getMateriale("glossy"), getMateriale("glossy"), getMateriale("sella"));
+			materiale = "glossy";		
             break;
         case 'ruggine':
-			init();
-            caricaModello(getMateriale("ruggine"), getMateriale("glossy"), getMateriale("sella"));	
 			
+            caricaModello(getMateriale("ruggine"), getMateriale("glossy"), getMateriale("sella"));	
+			materiale = "ruggine";
 			break;   
 	}
 }
