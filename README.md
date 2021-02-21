@@ -7,19 +7,18 @@
 
 ## Descrizione:
 
-L'intero progetto si basa, come da consegna, nel costruire una configuratore di un prodotto a propria scelta. 
+L'intero progetto si basa, come da consegna, nel progettare e realizzare un configuratore per prodotto a propria scelta. 
 L'idea è stata quella di creare un configuratore per una vespa Piaggio, utilizzando un modello 3D sviluppato per il progetto di Grafica 3D creativa.
-Inizialmente è stato costruito il terreno con una heightmap (spiegherò nel dettagli nela sezione "terreno"), ed sono stati aggiunti diversi elementi tra cui: 
-- Mulino: La casa è stata costruita tramite parallelepipedi. La ruota che compone il mulino è stata creata cambiando il pivot gli elementi che la compongono così da farli posizionare intorno al perno centrale.<br />
-![Immagini Mulino](immagini/mulino.png)
-- Cascata: E' composta da due file di cubi per creare un senso di profondità, sono stati posizionati in modo non allineato così da creare il disordine dell'acqua.<br />
-![Immagine cascata](immagini/cascata.png)
-- Ponte: E' composto da parallelepipedi con angolazioni diverse così da formare un arco.<br />
-![Immagine cascata](immagini/ponte.png)
-- Alberi: Compositi da un tronco e box sovrapposti per simulare l'aspetto di un pino. Vengono aggiunti in modo automatico solo sulla superficie che corrisponde al prato, tenendo conto della distanza tra loro e il numero massimo<br />
-![Immagine cascata](immagini/albero.png)
-- Nuvole: Sono state ideate per essere tutte diverse tra loro, composte da diversi cubi.<br />
-![Immagine cascata](immagini/nuvole.png)
+Tramite il pannello laterale è possibile cambiare diversi componenti della vespa, in particolare:
+- Scocca;
+- Manopole;
+- Sella;
+
+Inoltre è possibile cambiare l'ambientazione dello sfondo, scegliendo tra:
+
+- Studio
+- Garage
+- Giardino
 
 ## Terreno:
 
@@ -42,7 +41,7 @@ E' stato preso in considerazione anche la possbilità di eliminare le facce dei 
 
 ## Sviluppi futuri:
 
-Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'animazione della cascata e del fiume e migliorare la gestione delle luci creando scenari di giorno e notte con qulahce punto di luce notturno come per esempio un fuoco.
+Il progetto potrebbe essere ampliato aggiungendo nuove personalizzazioni per altri componenti, come per esempio la possibilità di personalizzare i cerchi.
 
 ## Struttura:
 
@@ -60,6 +59,8 @@ Il progetto potrebbe essere ampliato aggiungendo molte nuove animazioni, come l'
   * `./js/materiali.js` -> Contiene tutti i materiali di tutto il progetto che vengono richiesti tramite la funzione `getMateriale()`
 * **`./textures`** -> Contiene tutte le texture utilizzate nel progetto (Sia le cubemaps, che le varie textures)
 * **`./modello_3d`** -> Contiene i file `.bin` e `.gltf` del modello 3D
+* **`./images`** -> Contiene tutti i file multimediali del progetto, sia per la parte del sito web sia per il file readme.md
+* **`./css`** -> Contiene i file di stile del sito web
 
 
 ## Strumenti Utilizzati
