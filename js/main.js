@@ -12,6 +12,8 @@
 			var camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			var scene = new THREE.Scene();
+			var materiale = "colore";
+			
 			
 
 			// default: white, 1.0 intensity
@@ -26,7 +28,18 @@
 			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
 
-
+			var light = new THREE.SpotLight(0xffffff, 0.8, 100, Math.PI / 2, 0.2, 2);
+			light.position.set(0.0, 25.0, -10.0);
+			
+		
+			var light1 = new THREE.SpotLight(0xd1e264, 0.8, 100, Math.PI / 3, 1, 8);
+			light1.position.set(22.0, 19.0, -11.0);
+			
+		
+		
+			var light2 = new THREE.SpotLight(0x0f4c81, 0.8, 100, Math.PI / 3, 0.9, 6);
+			light2.position.set(-28.0, 15.0, 3.0);
+			
 			var bool = true;
 			var stats = new Stats();
 
@@ -38,18 +51,23 @@
 				camera.position.set( 6, 5, 6 );
 				scene.add( camera );
 				//scene.add(lightMesh);
+				scene.add(light);
+				scene.add(light1);
+				scene.add(light2);
+				 //shadowmap
+				 renderer.shadowMap.enabled = true;
+				// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+				 light.castShadow = true;
+				 light1.castShadow = true;
+				 light2.castShadow = true;
+		   
+				 light.shadow.mapSize.width = 1024;
+				 light.shadow.mapSize.height = 1024;
+				 light1.shadow.mapSize.width = 1024;
+				 light1.shadow.mapSize.height = 1024;
+				 light2.shadow.mapSize.width = 1024;
+				 light2.shadow.mapSize.height = 1024;
 
-				// Ground
-
-				var plane = new THREE.Mesh(
-					new THREE.PlaneBufferGeometry( 40, 40 ),
-					new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-				);
-				plane.rotation.x = -Math.PI/2;
-				
-				//scene.add( plane );
-			 
-				plane.receiveShadow = true;
 
 				// Richiamo funzioni per setup base
 				if(bool){
@@ -58,8 +76,10 @@
 					bool = false;
 				}
 				
-
-				ambiente.minFilter = THREE.LinearMipMapLinearFilter;
+				if(ambiente != null){
+					ambiente.minFilter = THREE.LinearMipMapLinearFilter;
+				}
+				
 
 				// Lights
 
@@ -72,8 +92,9 @@
 				renderer.setSize( width, window.innerHeight );
 
 				controls.minDistance = 1;
-				controls.maxDistance = 100;
+				controls.maxDistance = 30;
 				controls.enablePan = false;
+				controls.maxPolarAngle = 1.50;
 				controls.update();
 
 				window.addEventListener( 'resize', onResize, false );
