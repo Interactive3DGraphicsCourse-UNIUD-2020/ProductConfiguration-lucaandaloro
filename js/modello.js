@@ -43,6 +43,9 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
     
                 
       model2  = model.scene;
+      model2.castShadow = true;
+      model2.receiveShadow = true;
+      model2.name = "modello";
       scene.add(model2);
      
                 
