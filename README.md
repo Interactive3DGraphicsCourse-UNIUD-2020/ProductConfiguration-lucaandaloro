@@ -7,35 +7,40 @@
 
 ## Descrizione:
 
-L'intero progetto si basa, come da consegna, nel progettare e realizzare un configuratore per prodotto a propria scelta. 
-L'idea è stata quella di creare un configuratore per una vespa Piaggio, utilizzando un modello 3D sviluppato per il progetto di Grafica 3D creativa.
+L'intero progetto si basa, come da consegna, nel progettare e realizzare un configuratore per un prodotto a propria scelta. 
+L'idea è stata quella di creare un configuratore per una vespa Piaggio, utilizzando un modello 3D interamente sviluppato per il progetto di Grafica 3D creativa.<br />
 Tramite il pannello laterale è possibile cambiare diversi componenti della vespa, in particolare:
-- Scocca;
-- Manopole;
-- Sella;
+- Scocca
+- Manopole
+- Sella
 
-Inoltre è possibile cambiare l'ambientazione dello sfondo, scegliendo tra:
+E' possibile cambiare l'ambientazione dello sfondo, scegliendo tra:
 
 - Studio
 - Garage
 - Giardino
 
+Inoltre, è possibile:
+
+- Abilitare una luce ambientale
+- Mostrare la posizione della luce principale
+
 ## Modello:
 
 Il modello è stato interamente autocostruito durante il corso di Grafica 3D creativa e migliorato/personalizzato per questo progetto.<br />
-E' composto da molte parti diverse, inizialamente questo ha portato a un sovvracaricamento di gestione/creazione dei materiali, ma con lo svilupparsi del progetto il problema si è trasformato in un aspetto positivo perchè scosì facendo si ha la possibilità di personalizzare sotto diversi aspetti il prodotto.
+E' composto da molte parti diverse, inizialamente questo ha portato a un sovvracaricamento di gestione/creazione dei materiali, ma con lo svilupparsi del progetto il problema si è trasformato in un aspetto positivo perchè così facendo si ha la possibilità di personalizzare in molti aspetti il prodotto.
 ![Maya](images/maya.png) <br />
 Dopo diversi test il modello è stato esportato e importato nella scena nel formato gltf tramite un plugin extra di Maya, [Verge3D](https://github.com/Interactive3DGraphicsCourse-UNIUD-2020/cubes-lucaandaloro/tree/sviluppo#ottimizzazione)
 
 ## Materiali:
 
-All'interno del progetto sono state implementate tre diverse BRDF, che vengono sfruttate in base alla selezione dell'utente, e sono: 
+All'interno del progetto sono state implementate tre diverse BRDF, che vengono sfruttate in base al materiale selezionato dell'utente, e sono: 
 
 - Glossy reflection mapping con Cubemap
 - Textures con Diffuse, Normal, Roughness e Specular
 - Microfacets per il metalli (scocca) con colori
 
-Inoltre sono stati creati alcuni materiali senza shaders per le parti che non possono essere personalizzati dell'utente, come per esempio i vetrini del fanale anteriore e posteriore.
+Inoltre sono stati creati alcuni materiali senza shaders per le parti che non possono essere personalizzate dell'utente, come per esempio i vetrini del fanale anteriore e posteriore.
 
 ## Luci:
 
