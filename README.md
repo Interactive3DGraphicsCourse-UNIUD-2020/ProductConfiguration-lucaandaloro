@@ -33,7 +33,7 @@ All'interno del progetto sono state implementate tre diverse BRDF, che vengono s
 
 - Glossy reflection mapping con Cubemap
 - Textures con Diffuse, Normal, Roughness e Specular
-- Lambertiana con microfacet per i colori
+- Microfacets per il metalli (scocca) con colori
 
 Inoltre sono stati creati alcuni materiali senza shaders per le parti che non possono essere personalizzati dell'utente, come per esempio i vetrini del fanale anteriore e posteriore.
 
