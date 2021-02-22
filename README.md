@@ -41,14 +41,17 @@ Inoltre sono stati creati alcuni materiali senza shaders per le parti che non po
 
 Le luci che illuminano "artificalmente" l'oggetto inserite sono 5:
 
-- Luce principale che viene utilizzate anche all'interno delle BRDF con textures e Lambertiana
-- 3 luci spotlight che vengono utilizzate nell'ambiente Studio per illuminarlo, creare le ombre e dare un effetto set fotografico
+- 1 luce principale che viene utilizzate all'interno delle BRDF textures e Microfacets (quella vista nei nostri esempi)
+- 1 luce spotlight che viene utilizzate all'interno delle BRDF Microfacets
+- 2 luci spotlight che vengono utilizzate nell'ambiente Studio per illuminarlo, creare le ombre e dare un effetto set fotografico
 - Luce ambientlight che può essere abilitata e disabilitata dell'utente, per sempio per vedere meglio alcuni particolari della Vespa
 
 Invece la tecnica utilizzata per illuminare "naturalmente" l'oggetto sono:
 
 - L'utillizo delle Envoriment Maps con ambientazione per la parte di Glossy
 - Invece per la parte dell'ambiente Studio viene utilizzata una  Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale)
+
+Sono state inserite molte luci diverse (anche in situazioni diverse) solo a scopo dittatico per mostrare le diverse applicazioni.
 
 ## Ambienti:
 

@@ -125,9 +125,11 @@ function getMateriale(materiale){
                 cspec:	{ type: "v3", value: new THREE.Vector3(1.53, 2.04, 2.5) },
                 roughness: {type: "f", value: 0.4},
                 pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+                pointLightPosition2:	{ type: "v3", value: new THREE.Vector3() },
                 clight:	{ type: "v3", value: new THREE.Vector3() },
             };
             uniforms_color.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            uniforms_color.pointLightPosition2.value = new THREE.Vector3(light.position.x, light.position.y, light.position.z);
             uniforms_color.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity,lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
             var material = new THREE.ShaderMaterial({ uniforms: uniforms_color, vertexShader: vs_color, fragmentShader: fs_color });
             break;

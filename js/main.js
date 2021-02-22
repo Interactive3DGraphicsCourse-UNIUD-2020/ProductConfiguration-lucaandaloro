@@ -29,7 +29,7 @@
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
 
 			var light = new THREE.SpotLight(0xffffff, 0.8, 100, Math.PI / 2, 0.2, 2);
-			light.position.set(0.0, 25.0, -10.0);
+			light.position.set(-8.0, 25.0, -10.0);
 		
 			var light1 = new THREE.SpotLight(0xd1e264, 0.8, 100, Math.PI / 3, 1, 8);
 			light1.position.set(22.0, 19.0, -11.0);
@@ -51,10 +51,12 @@
 				
 		
 				scene.add( camera );
-				//scene.add(lightMesh);
+				
 				scene.add(light);
 				scene.add(light1);
 				scene.add(light2);
+				
+
 				 renderer.shadowMap.enabled = true;
 				// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				 light.castShadow = true;
