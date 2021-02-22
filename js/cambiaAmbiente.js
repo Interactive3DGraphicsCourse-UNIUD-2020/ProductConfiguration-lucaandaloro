@@ -28,7 +28,7 @@ function cambiaAmbiente(tipo){
 				plane.castShadow = false;
 				plane.receiveShadow = true;
 				plane.name = "plane";
-				ambiente=caricaCubeMap("irradiancemap");
+				//ambiente=null
 				studio = true;
 			}else{
 				

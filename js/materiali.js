@@ -7,15 +7,15 @@ var lightParameters = {
     blue: 1,
     intensity: 1,
 }
+
 // Parte dedicata al glossy scocca
 
-var normalMap_casco = null;
 var uniforms_glossy = {
     cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-    normalMap:	{ type: "t", value: normalMap_casco},
+    normalMap:	{ type: "t", value: null},
     normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
     envMap:	{ type: "t", value: ambiente},
-    roughness: { type: "f", value: 0.2},
+    
 };
 
 // Parte dedicata alla sella
@@ -160,10 +160,21 @@ function getMateriale(materiale){
 
         case "manopola":
             
-                uniforms_textures_manopola.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
-                uniforms_textures_manopola.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
-                var material = new THREE.ShaderMaterial({ uniforms: uniforms_textures_manopola, vertexShader: vs_textures, fragmentShader: fs_textures });
-                break;
+            uniforms_textures_manopola.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            uniforms_textures_manopola.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_textures_manopola, vertexShader: vs_textures, fragmentShader: fs_textures });
+            break;
+
+        case "irradiance":
+            var irradianceMap = caricaCubeMap("irradiancemap");
+            var uniforms_irradiance = {
+                cdiff:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
+                normalMap:	{ type: "t", value: normalMap},
+                    normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+                    irradianceMap:	{ type: "t", value: irradianceMap},
+                };
+            var material = new THREE.ShaderMaterial({ uniforms: uniforms_irradiance, vertexShader: vs_irradiance, fragmentShader: fs_irradiance });
+            break;
     }
     return material;
 }

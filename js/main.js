@@ -6,7 +6,8 @@
 			fs_color = document.getElementById("fragment_color").textContent;
 			vs_textures = document.getElementById("vertex_textures").textContent;
 			fs_textures = document.getElementById("fragment_textures").textContent;	
-			
+			vs_irradiance = document.getElementById("vertex_irradiance").textContent;
+			fs_irradiance = document.getElementById("fragment_irradiance").textContent;	
 			
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -54,7 +55,6 @@
 				scene.add(light);
 				scene.add(light1);
 				scene.add(light2);
-				 //shadowmap
 				 renderer.shadowMap.enabled = true;
 				// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				 light.castShadow = true;
@@ -124,8 +124,6 @@
 				renderer.render( scene, camera );
 
 			}
-
-
 		
 
 			function updateUniformsGlossy() {
@@ -135,7 +133,6 @@
 
 			function updateUniformsTexturesSella() {
 
-				
 				uniforms_textures_sella.textureRepeat.value = new THREE.Vector2( repeatS_sella, repeatT_sella);
 				uniforms_textures_sella.diffuseMap.value = diffuseMapSella;
 				uniforms_textures_sella.specularMap.value = specularMapSella;
@@ -145,7 +142,6 @@
 
 			function updateUniformsTexturesManopola() {
 
-				
 				uniforms_textures_manopola.textureRepeat.value = new THREE.Vector2( repeatS_manopola, repeatT_manopola);
 				uniforms_textures_manopola.diffuseMap.value = diffuseMapManopola;
 				uniforms_textures_manopola.specularMap.value = specularMapManopola;

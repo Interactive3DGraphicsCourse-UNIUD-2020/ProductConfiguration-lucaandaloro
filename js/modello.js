@@ -1,5 +1,5 @@
 var model;
-function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
+function caricaModello(materiale_scocca, materiale_secondario, material_sella){
     
   var loader = new THREE.GLTFLoader();
   loader.useIndices = true;
@@ -47,6 +47,22 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
       model2.receiveShadow = true;
       model2.name = "modello";
       scene.add(model2);
+
+      var leva_mat;
+      var cerchio_mat;
+      var cornice_mat;
+      var clacson_mat;
+      if(studio == true){
+        leva_mat = getMateriale("irradiance");
+        cerchio_mat = getMateriale("irradiance");
+        cornice_mat = getMateriale("irradiance");
+        clacson_mat = getMateriale("irradiance");
+      }else{
+        leva_mat = materiale_secondario;
+        cerchio_mat = materiale_secondario;
+        cornice_mat = materiale_secondario;
+        clacson_mat = materiale_secondario;
+      }
      
                 
                 scocca.traverse(o => {
@@ -67,14 +83,14 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
                 if (o.isMesh) {
                 o.castShadow = true;
                 o.receiveShadow = true;
-                o.material = materiale_cerchione; // Add this line
+                o.material = leva_mat; // Add this line
                 }
             });
             leva_freno_sinistro.traverse(o => {
               if (o.isMesh) {
               o.castShadow = true;
               o.receiveShadow = true;
-              o.material = materiale_cerchione; // Add this line
+              o.material = leva_mat; // Add this line
               }
           });
               manubrio_destro_ferro.traverse(o => {
@@ -97,7 +113,7 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
                 if (o.isMesh) {
                 o.castShadow = true;
                 o.receiveShadow = true;
-                o.material = materiale_cerchione; // Add this line
+                o.material = cerchio_mat; // Add this line
                 }
             });
 
@@ -126,14 +142,14 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
               if (o.isMesh) {
               o.castShadow = true;
               o.receiveShadow = true;
-              o.material = materiale_cerchione; // Add this line
+              o.material = cornice_mat; // Add this line
               }
           });
           cerchione_ant.traverse(o => {
             if (o.isMesh) {
             o.castShadow = true;
             o.receiveShadow = true;
-            o.material = materiale_cerchione; // Add this line
+            o.material = cerchio_mat; // Add this line
             }
         });
         vetrino_ant.traverse(o => {
@@ -154,7 +170,7 @@ function caricaModello(materiale_scocca, materiale_cerchione, material_sella){
         if (o.isMesh) {
         o.castShadow = true;
         o.receiveShadow = true;
-        o.material = materiale_cerchione;
+        o.material = clacson_mat;
         }
     });  
     pneumatico_anteriore.traverse(o => {
