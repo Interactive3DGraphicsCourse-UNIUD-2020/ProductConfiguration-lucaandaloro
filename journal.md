@@ -86,7 +86,7 @@
 ### 21 Febbraio 2021
 
 - Correzioni finali 
-- fine stesura file readme.md
+- Fine stesura file readme.md
 
 
 
