@@ -13,7 +13,7 @@ function cambiaAmbiente(tipo){
 			if (materiale == "colore" || materiale == "ruggine"){
 				//Creo lo studio
 				//Pareti
-				var geometry = new THREE.BoxGeometry(50, 50, 50);
+				var geometry = new THREE.BoxGeometry(200, 200, 200);
 				var material = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 				var cube = new THREE.Mesh(geometry, material);
 				cube.name = "cube";
@@ -47,7 +47,22 @@ function cambiaAmbiente(tipo){
 			}
 			ambiente=caricaCubeMap("garage");
 			
-		break;	
+		break;
+		// Ambiente test per posizionare la vespa sul pavimento delle cubemaps
+		case "test":
+			var geometry = new THREE.BoxGeometry(1000, 1000, 1000);
+			var mate = caricaCubeMap2("test");
+			var mesh = new THREE.Mesh( geometry, mate );
+			mesh.position.set( 0, 90, 0 );
+			scene.add(mesh);
+			//Pavimento
+			var geo = new THREE.PlaneGeometry(100, 100, 100, 100);
+			var mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
+			var mati = caricaCubeMap3("test");
+			var plane = new THREE.Mesh(geo, mati);
+			plane.rotateX(- Math.PI / 2);
+			scene.add(plane);
+			break;
 
 	}
 	scene.background = ambiente;
@@ -71,7 +86,28 @@ function caricaCubeMap(path){
 		] );
 
 	}
-
-	
 	return textureCube;
+}
+
+function caricaCubeMap2(path){
+	// load cube map for background
+	var loader = new THREE.TextureLoader();
+	loader.setPath( 'textures/cubemap/'+path+"/" );
+		var materialArray = [
+			new THREE.MeshBasicMaterial( { map: loader.load('posx.png'),  side: THREE.BackSide } ),
+			new THREE.MeshBasicMaterial( { map: loader.load('negx.png'),  side: THREE.BackSide  } ),
+			new THREE.MeshBasicMaterial( { map: loader.load('posy.png'),  side: THREE.BackSide  } ),
+			new THREE.MeshBasicMaterial( { map: loader.load('negy.png'),  side: THREE.BackSide  } ),
+			new THREE.MeshBasicMaterial( { map: loader.load('posz.png'),  side: THREE.BackSide  } ),
+			new THREE.MeshBasicMaterial( { map: loader.load('negz.png'),  side: THREE.BackSide  } ),
+		];
+	
+	return materialArray;
+}
+function caricaCubeMap3(path){
+	// load cube map for background
+	var loader = new THREE.TextureLoader();
+	loader.setPath( 'textures/cubemap/'+path+"/" );
+		var material = new THREE.MeshBasicMaterial( { map: loader.load('negy.png') } );
+	return material;
 }
