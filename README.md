@@ -48,19 +48,19 @@ Le luci che illuminano "artificalmente" l'oggetto inserite sono 5:
 
 Invece la tecnica utilizzata per illuminare "naturalmente" l'oggetto sono:
 
-- L'utillizo delle Envoriment Maps con ambientazione per la parte di Glossy
-- Invece per la parte dell'ambiente Studio viene utilizzata una  Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale)
+- L'utillizzo delle Envoriment Maps con ambientazione per la parte di Glossy
+- Invece per la parte dell'ambiente Studio viene utilizzata una Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale)
 
-Sono state inserite molte luci diverse (anche in situazioni diverse) solo a scopo dittatico per mostrare le diverse applicazioni.
+Sono state inserite molte combinazioni luci diverse solo a scopo didattico per mostrare le diverse applicazioni.
 
 ## Ambienti:
 
-Per la parte degli ambienti durante lo sviluppo del progetto sono state effettaute diverse prove per trovare l'ambientazione giusta, l'idea era quella di posizionare la vespa  in un studio fotografico o salone di esposizione.
+Per la parte degli ambienti durante lo sviluppo del progetto sono state effettuate diverse prove per trovare l'ambientazione giusta, l'idea era quella di posizionare la vespa in un studio fotografico o salone di esposizione.
 Infine sono state scelte tre ambientazioni diverse:
 
-- Studio: è stato creato uno studio "artificale" trammi un cubo viene ricreata la stanza e un piano il pavimento di appoggio
-- Garage: utilizzado le cubemaps è stato creato un ambiente a forma di garage
-- Giardino: utilizzado sempre le cubemaps è stato creata una ambientazione in un giardino 
+- Studio: è stato creato uno studio "artificale" trammite un cubo viene ricreata la stanza e un piano il pavimento di appoggio
+- Garage: utilizzando le cubemaps è stato creato un ambiente a forma di garage
+- Giardino: utilizzando sempre le cubemaps è stato creata una ambientazione in un giardino 
 
 ## Sviluppi futuri:
 
@@ -80,6 +80,8 @@ Il progetto potrebbe essere ampliato aggiungendo nuove personalizzazioni per alt
   * `./js/cambiaScocca.js` -> Contiene la funzione per cambiare i materiali della scocca
   * `./js/cambiaSella.js` -> Contiene la funzione per cambiare i materiali della sella
   * `./js/materiali.js` -> Contiene tutti i materiali di tutto il progetto che vengono richiesti tramite la funzione `getMateriale()`
+  * `./js/luceAmbientale.js` -> Contiene la funzione attivare la luce ambientale
+  * `./js/mostraPosizioneLuce.js` -> Contiene la funzione mostrare la posizione della luce principale
 * **`./textures`** -> Contiene tutte le texture utilizzate nel progetto (Sia le cubemaps, che le varie textures)
 * **`./modello_3d`** -> Contiene i file `.bin` e `.gltf` del modello 3D
 * **`./images`** -> Contiene tutti i file multimediali del progetto, sia per la parte del sito web sia per il file readme.md
