@@ -34,11 +34,13 @@ Dopo diversi test il modello è stato esportato e importato nella scena nel form
 
 ## Materiali:
 
-All'interno del progetto sono state implementate tre diverse BRDF, che vengono sfruttate in base al materiale selezionato dell'utente, e sono: 
+All'interno del progetto sono state implementati cinque diversi shader, che vengono sfruttati in base al materiale selezionato dell'utente, e sono: 
 
 - Glossy reflection mapping con Cubemap
 - Textures con Diffuse, Normal, Roughness e Specular
-- Microfacets per il metalli (scocca) con colori
+- Textures con Diffuse, Normal, Roughness, Specular e Ambient occlusion
+- Microfacets per il metalli (scocca) con colore
+- Irradiance Map per illuminari i cerchi quando non si ha attiva nessuna cubeMap
 
 Inoltre sono stati creati alcuni materiali senza shaders per le parti che non possono essere personalizzate dell'utente, come per esempio i vetrini del fanale anteriore e posteriore.
 
@@ -47,14 +49,14 @@ Inoltre sono stati creati alcuni materiali senza shaders per le parti che non po
 Le luci che illuminano "artificalmente" l'oggetto inserite sono 5:
 
 - 1 luce principale che viene utilizzate all'interno delle BRDF textures e Microfacets (quella vista nei nostri esempi)
-- 1 luce spotlight che viene utilizzate all'interno delle BRDF Microfacets
+- 1 luce spotlight che viene utilizzate all'interno delle BRDF Microfacets (insieme alla luce principale)
 - 2 luci spotlight che vengono utilizzate nell'ambiente Studio per illuminarlo, creare le ombre e dare un effetto set fotografico
-- Luce ambientlight che può essere abilitata e disabilitata dell'utente, per sempio per vedere meglio alcuni particolari della Vespa
+- 1 Luce ambientlight che può essere abilitata e disabilitata dell'utente e agisce sull'illuminazione della Texture "ruggine" tramite l'utilizzo dell'Ambient occlusion ed aggiunge un'illuminazione all'ambiente.
 
 Invece la tecnica utilizzata per illuminare "naturalmente" l'oggetto sono:
 
 - L'utillizzo delle Envoriment Maps con ambientazione per la parte di Glossy
-- Invece per la parte dell'ambiente Studio viene utilizzata una Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale)
+- Invece per la parte dell'ambiente Studio viene utilizzata una Irradince Map che illumina alcuni particolare riflettenti (come per esempio la cornice laterale e i cerchi)
 
 Sono state inserite molte combinazioni luci diverse solo a scopo didattico per mostrare le diverse applicazioni.
 
@@ -64,7 +66,7 @@ Per la parte degli ambienti durante lo sviluppo del progetto sono state effettua
 Infine sono state scelte tre ambientazioni diverse:
 
 - Studio: è stato creato uno studio "artificale" trammite un cubo viene ricreata la stanza e un piano il pavimento di appoggio
-- Garage: utilizzando le cubemaps è stato creato un ambiente a forma di garage
+- Garage: utilizzando le cubemaps è stato creato un ambiente stile di garage
 - Giardino: utilizzando sempre le cubemaps è stato creata una ambientazione in un giardino 
 
 ## Sviluppi futuri:
@@ -100,6 +102,7 @@ Il progetto potrebbe essere ampliato aggiungendo nuove personalizzazioni per alt
   - Safari
   - Photoshop
   - GitHub Desktop
+  - [Pixplant 3](https://www.pixplant.com) -> Ho utilizzato questo programma per crearmi la texture AO Map per la ruggine perchè non veniva fornita.
   
 
 - **Hardware:**

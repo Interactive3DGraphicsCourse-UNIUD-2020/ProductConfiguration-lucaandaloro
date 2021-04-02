@@ -6,6 +6,8 @@
 			fs_color = document.getElementById("fragment_color").textContent;
 			vs_textures = document.getElementById("vertex_textures").textContent;
 			fs_textures = document.getElementById("fragment_textures").textContent;	
+			vs_textures_ao = document.getElementById("vertex_textures_ao").textContent;
+			fs_textures_ao = document.getElementById("fragment_textures_ao").textContent;	
 			vs_irradiance = document.getElementById("vertex_irradiance").textContent;
 			fs_irradiance = document.getElementById("fragment_irradiance").textContent;	
 			
@@ -119,6 +121,7 @@
 				updateUniformsGlossy();
 				updateUniformsTexturesSella();
 				updateUniformsTexturesManopola();
+				updateUniformsTexturesScocca();
 				render();
 			}
 
@@ -149,6 +152,19 @@
 				uniforms_textures_manopola.specularMap.value = specularMapManopola;
 				uniforms_textures_manopola.roughnessMap.value = roughnessMapManopola;
 				uniforms_textures_manopola.normalMap.value = normalMapManopola;
+			}
+
+			function updateUniformsTexturesScocca() {
+				/*if(materiale == "ruggine"){
+					uniforms_textures.ambientLight.value = new THREE.Vector3(ambientLightParameters.red * ambientLightParameters.intensity,ambientLightParameters.green * ambientLightParameters.intensity,ambientLightParameters.blue * ambientLightParameters.intensity);
+					uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+					uniforms_textures.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+					console.log("ok");
+				}*/
+				uniforms_textures_scocca.ambientLight.value = new THREE.Vector3(ambientLightParameters.red * ambientLightParameters.intensity,ambientLightParameters.green * ambientLightParameters.intensity,ambientLightParameters.blue * ambientLightParameters.intensity);
+				uniforms_textures_scocca.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
+            	uniforms_textures_scocca.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
+				
 			}
 
 			

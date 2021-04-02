@@ -8,6 +8,13 @@ var lightParameters = {
     intensity: 1,
 }
 
+var ambientLightParameters = {
+    red: 0.2,
+    green: 0.2,
+    blue: 0.2,
+    intensity: 0.0,
+}
+
 // Parte dedicata al glossy scocca
 
 var uniforms_glossy = {
@@ -26,6 +33,8 @@ var diffuseMapSella = loadTexture( "textures/sella/Leather001_2K_Diffuse.png" );
 var specularMapSella = loadTexture( "textures/sella/Leather001_2K_Specular.png" );
 var roughnessMapSella = loadTexture( "textures/sella/Leather001_2K_Roughness.png" );
 var normalMapSella = loadTexture( "textures/sella/Leather001_2K_Normal.png" );
+
+
 var uniforms_textures_sella = {
     specularMap: { type: "t", value: specularMapSella},
     diffuseMap:	{ type: "t", value: diffuseMapSella},
@@ -45,16 +54,39 @@ var diffuseMapManopola = loadTexture( "textures/manopole/Tiles072_2K_Diffuse.png
 var specularMapManopola = loadTexture( "textures/manopole/Tiles072_2K_Specular.png" );
 var roughnessMapManopola = loadTexture( "textures/manopole/Tiles072_2K_Roughness.png" );
 var normalMapManopola = loadTexture( "textures/manopole/Tiles072_2K_Normal.png" );
+
 var uniforms_textures_manopola = {
         specularMap: { type: "t", value: specularMapManopola},
         diffuseMap:	{ type: "t", value: diffuseMapManopola},
         roughnessMap:	{ type: "t", value: roughnessMapManopola},
         normalMap:	{ type: "t", value: normalMapManopola},
         normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+        
         pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
         clight:	{ type: "v3", value: new THREE.Vector3() },
         textureRepeat: { type: "v2", value: new THREE.Vector2(2.0,2.0) }
 };
+
+// Parte dedicata alla ruggine
+
+var diffuseMapScocca ;
+var specularMapScocca;
+var roughnessMapScocca;
+var normalMapScocca;
+var aoMapScocca;           
+var uniforms_textures_scocca = {
+            specularMap: { type: "t", value: specularMapScocca },
+            diffuseMap:	{ type: "t", value: diffuseMapScocca },
+            roughnessMap:	{ type: "t", value: roughnessMapScocca },
+            normalMap:	{ type: "t", value: normalMapScocca },
+            aoMap:	{ type: "t", value: aoMapScocca },
+            normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+            pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+            ambientLight:	{ type: "v3", value: new THREE.Vector3() },
+            clight:	{ type: "v3", value: new THREE.Vector3() },
+            textureRepeat: { type: "v2", value: new THREE.Vector2(2.0,2.0) }
+    };
+
 
 function getMateriale(materiale){
     switch(materiale){
@@ -91,23 +123,18 @@ function getMateriale(materiale){
             break;
             
         case "ruggine":
-            var diffuseMap = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
-			var specularMap = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
-			var roughnessMap = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
-			var normalMap = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
-            var uniforms_textures = {
-				specularMap: { type: "t", value: specularMap},
-				diffuseMap:	{ type: "t", value: diffuseMap},
-				roughnessMap:	{ type: "t", value: roughnessMap},
-				normalMap:	{ type: "t", value: normalMap},
-				normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-				pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-				clight:	{ type: "v3", value: new THREE.Vector3() },
-				textureRepeat: { type: "v2", value: new THREE.Vector2(2.0,2.0) }
-			};
-            uniforms_textures.pointLightPosition.value = new THREE.Vector3(lightMesh.position.x, lightMesh.position.y, lightMesh.position.z);
-            uniforms_textures.clight.value = new THREE.Vector3(lightParameters.red * lightParameters.intensity, lightParameters.green * lightParameters.intensity, lightParameters.blue * lightParameters.intensity);
-            var material = new THREE.ShaderMaterial({ uniforms: uniforms_textures, vertexShader: vs_textures, fragmentShader: fs_textures });
+            
+             diffuseMapScocca = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
+             specularMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
+             roughnessMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
+             normalMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
+             aoMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Ambient_occlusion.jpg" );
+             uniforms_textures_scocca.diffuseMap.value = diffuseMapScocca;
+             uniforms_textures_scocca.specularMap.value = specularMapScocca;
+             uniforms_textures_scocca.roughnessMap.value = roughnessMapScocca;
+             uniforms_textures_scocca.normalMap.value = normalMapScocca;     
+             uniforms_textures_scocca.aoMap.value = aoMapScocca;  
+             material = new THREE.ShaderMaterial({ uniforms: uniforms_textures_scocca, vertexShader: vs_textures_ao, fragmentShader: fs_textures_ao });
             break;
         
         case "glossy":

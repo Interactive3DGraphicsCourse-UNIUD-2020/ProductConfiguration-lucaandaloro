@@ -4,7 +4,7 @@ function caricaModello(materiale_scocca, materiale_secondario, material_sella){
   var loader = new THREE.GLTFLoader();
   loader.useIndices = true;
     loader.load( "modello_3d/vespa.gltf", function ( model ) {
-
+      
       // Seleziono tutti le parti dell'oggetto 3D
       cerchione_ant = model.scene.children[4];
       parafango_ant = model.scene.children[5];
@@ -39,13 +39,23 @@ function caricaModello(materiale_scocca, materiale_secondario, material_sella){
       manubrio_sinistro_ferro = model.scene.children[39];
       test = model.scene.children[34];
       
-     
-    
+      geometry1 = scocca.children[0].geometry;
+      geometry2 = sella.children[0].geometry;
+      geometry3 = borse_lat.children[0].geometry;
+      geometry4 = manopola_destra.children[0].children[0].children[1].geometry;
+      
+      
+      THREE.BufferGeometryUtils.computeTangents(geometry1);
+      THREE.BufferGeometryUtils.computeTangents(geometry2);
+      THREE.BufferGeometryUtils.computeTangents(geometry3);
+      THREE.BufferGeometryUtils.computeTangents(geometry4);
+      
                 
       model2  = model.scene;
       model2.castShadow = true;
       model2.receiveShadow = true;
       model2.name = "modello";
+     
       scene.add(model2);
 
       var leva_mat;

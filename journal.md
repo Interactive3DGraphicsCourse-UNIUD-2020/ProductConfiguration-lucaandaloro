@@ -88,6 +88,15 @@
 - Correzioni finali 
 - Fine stesura file readme.md
 
+### 1 Aprile 2021
+
+- Correzione sui valori delle tangenti per la textures Normal map 
+
+
+### 2 Aprile 2021
+
+- Utilizzo dell'illuminazione Ambient Occlusion per la texture "Ruggine" della scocca quando si attiva la luce ambientale
+
 
 
 
