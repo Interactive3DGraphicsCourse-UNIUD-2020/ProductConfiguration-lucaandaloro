@@ -62,7 +62,7 @@
 			varying vec2 vUv;
 			uniform vec3 cspec;
 			uniform sampler2D normalMap;
-			uniform samplerCube envMap;
+			uniform samplerCube envMap; // texture del cubo tutte le facce del cubo
 			uniform vec2 normalScale;
 			const float PI = 3.14159;
 
@@ -86,17 +86,28 @@
 				mapN.xy = normalScale * mapN.xy;
 				vec3 n = normalize( vTBN * mapN );
 				vec3 v = normalize( -vPosition);
-				vec3 worldN = inverseTransformDirection( n, viewMatrix );
-				vec3 worldV = cameraPosition - wPosition ;
+
+				// Da qui il poi abbiamo la prte dedicata alla riflessione
+
+				vec3 worldN = inverseTransformDirection( n, viewMatrix ); // Portiamo la normale da view space in world space perchè l'envmap è in world space
+				vec3 worldV = cameraPosition - wPosition ; // Portiamo il vettore v (che va dal punto alla camera) da view space in world space
 				vec3 r = normalize( reflect(-worldV,worldN));
 				// small quantity to prevent divisions by 0
 				float nDotv = max(dot( n, v ),0.000001);
 				vec3 fresnel = FSchlick(nDotv, cspec);
+
 				// negate x to account for how cubemap is displayed on background
-				vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb;
+				// Texturecube è una funzione apposita che prende due argomenti 
+				// - 1. la cubemap nel nostro caso appunto envMap, 
+				// - 2. il vettore direzione che parte dal centro del cubo e colpisci il texels corrispondente
+				vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb; 
+
 				// texture in sRGB, linearize
 				envLight = pow( envLight, vec3(2.2));
-				vec3 outRadiance = fresnel*envLight;
+				// Equazione di rendering, la superficie viene considerata come specchio ideale 
+				// quindi non si hanno le brdf che abbiamo visto fino ad adesso (Microfaccette e lambertiana) ma sono la parte di frenel
+				vec3 outRadiance = fresnel*envLight; 
+
 				// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
 				// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
 				gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
@@ -112,7 +123,7 @@
 						vNormal = normalMatrix * normal;
 						gl_Position = projectionMatrix * vPos;
 					}
-					</script>
+				</script>
 			
 					<script type="text/x-glsl" id="fragment_color">
 						varying vec3 vNormal;
