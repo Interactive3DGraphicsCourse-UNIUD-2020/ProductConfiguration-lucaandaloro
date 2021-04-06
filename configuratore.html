@@ -87,7 +87,7 @@
 				vec3 n = normalize( vTBN * mapN );
 				vec3 v = normalize( -vPosition);
 
-				// Da qui il poi abbiamo la prte dedicata alla riflessione
+				// Da qui in poi abbiamo la parte dedicata alla riflessione
 
 				vec3 worldN = inverseTransformDirection( n, viewMatrix ); // Portiamo la normale da view space in world space perchè l'envmap è in world space
 				vec3 worldV = cameraPosition - wPosition ; // Portiamo il vettore v (che va dal punto alla camera) da view space in world space
@@ -177,6 +177,7 @@
 							float alpha = roughness * roughness; // Utilizzato in unreal engine per dare più effetto
 							vec3 specularBRDF = FSchlick(vDoth, cspec)*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/(4.0*nDotl*nDotv);
 							vec3 specularBRDF2 = FSchlick(vDoth2, cspec)*GSmith(nDotv,nDotl2, alpha)*DGGX(nDoth2,alpha)/(4.0*nDotl2*nDotv);
+							
 							vec3 outRadiance = PI*  ((clight *nDotl * specularBRDF) + (clight * nDotl2 * specularBRDF2)); //  equazione di rendering con le BRDF con le due luci
 							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
 							// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
@@ -384,8 +385,7 @@
 							roughness = texture2D( roughnessMap, vUv*textureRepeat).r; // no need to linearize roughness map
 							vec3 fresnel = FSchlick(vDoth, cspec);
 							float alpha = roughness * roughness;
-							vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/
-								(4.0*nDotl*nDotv);
+							vec3 BRDF = fresnel*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/ (4.0*nDotl*nDotv); // non utilizzo la parte diffusiva nella BRDF per dare un effetto più metallico! Ma viene utilizzata per l'illuminazione ambientale
 							vec3 outRadiance = PI* clight * nDotl * BRDF + ambientLight*cdiff*texture2D( aoMap, vUv ).xyz;
 							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
 							// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!

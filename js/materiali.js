@@ -76,7 +76,7 @@ var normalMapScocca;
 var aoMapScocca;           
 var uniforms_textures_scocca = {
             specularMap: { type: "t", value: specularMapScocca },
-            diffuseMap:	{ type: "t", value: diffuseMapScocca },
+            diffuseMap:	{ type: "t", value:   diffuseMapScocca},
             roughnessMap:	{ type: "t", value: roughnessMapScocca },
             normalMap:	{ type: "t", value: normalMapScocca },
             aoMap:	{ type: "t", value: aoMapScocca },
@@ -124,13 +124,13 @@ function getMateriale(materiale){
             
         case "ruggine":
             
-             diffuseMapScocca = loadTexture( "textures/scocca/Metal022_4K_Diffuse.jpg" );
-             specularMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Specular.png" );
+             diffuseMapScocca = loadTexture( "textures/scocca/diffuse.jpg" );
+             specularMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Specular.jpg" );
              roughnessMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Roughness.jpg" );
              normalMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Normal.jpg" );
              aoMapScocca  = loadTexture( "textures/scocca/Metal022_4K_Ambient_occlusion.jpg" );
              uniforms_textures_scocca.diffuseMap.value = diffuseMapScocca;
-             uniforms_textures_scocca.specularMap.value = specularMapScocca;
+             uniforms_textures_scocca.specularMap.value = specularMapScocca ;
              uniforms_textures_scocca.roughnessMap.value = roughnessMapScocca;
              uniforms_textures_scocca.normalMap.value = normalMapScocca;     
              uniforms_textures_scocca.aoMap.value = aoMapScocca;  
