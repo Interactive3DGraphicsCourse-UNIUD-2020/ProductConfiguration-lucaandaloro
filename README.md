@@ -36,7 +36,7 @@ Dopo diversi test il modello è stato esportato e importato nella scena nel form
 
 All'interno del progetto sono state implementati cinque diversi shader, che vengono sfruttati in base al materiale selezionato dell'utente, e sono: 
 
-- Glossy reflection mapping con Cubemap
+- Reflection mapping con Cubemap
 - Textures con Diffuse, Normal, Roughness e Specular
 - Textures con Diffuse, Normal, Roughness, Specular e Ambient occlusion
 - Microfacets per il metalli (scocca) con colore
