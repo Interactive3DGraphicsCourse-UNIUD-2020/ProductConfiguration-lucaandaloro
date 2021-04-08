@@ -19,8 +19,6 @@ var ambientLightParameters = {
 
 var uniforms_glossy = {
     cspec:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-    normalMap:	{ type: "t", value: null},
-    normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
     envMap:	{ type: "t", value: ambiente},
     
 };
@@ -171,12 +169,12 @@ function getMateriale(materiale){
             var diffuseMap = loadTexture( "textures/pedali/Plastic004_1K_Diffuse.png" );
             var specularMap = loadTexture( "textures/pedali/Plastic004_1K_Specular.png" );
             var roughnessMap = loadTexture( "textures/pedali/Plastic004_1K_Roughness.png" );
-            var normalMap = loadTexture( "textures/pedali/Plastic004_1K_Normal.png" );
+            var normalMapPedali = loadTexture( "textures/pedali/Plastic004_1K_Normal.png" );
             var uniforms_textures = {
                     specularMap: { type: "t", value: specularMap},
                     diffuseMap:	{ type: "t", value: diffuseMap},
                     roughnessMap:	{ type: "t", value: roughnessMap},
-                    normalMap:	{ type: "t", value: normalMap},
+                    normalMap:	{ type: "t", value: normalMapPedali},
                     normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
                     pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
                     clight:	{ type: "v3", value: new THREE.Vector3() },
@@ -197,12 +195,12 @@ function getMateriale(materiale){
         case "irradiance":
             var irradianceMap = caricaCubeMap("irradiancemap");
             var uniforms_irradiance = {
-                cdiff:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-                normalMap:	{ type: "t", value: normalMap},
+                    cdiff:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
                     normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
                     irradianceMap:	{ type: "t", value: irradianceMap},
                 };
             var material = new THREE.ShaderMaterial({ uniforms: uniforms_irradiance, vertexShader: vs_irradiance, fragmentShader: fs_irradiance });
+            // scene.background = irradianceMap; // da attivare per test
             break;
     }
     return material;
