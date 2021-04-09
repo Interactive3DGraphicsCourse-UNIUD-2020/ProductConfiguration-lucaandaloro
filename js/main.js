@@ -26,11 +26,11 @@
 	
 			// Luci
 
-			var lightMesh = new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 16),
-			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true}));
+			var lightMesh = new THREE.Mesh( new THREE.SphereGeometry( 1, 16, 16), 
+			new THREE.MeshBasicMaterial ({color: 0xffff00, wireframe:true})); // Questa luce viene utilizzata nell'illuminazione di tutti gli elementi
 			lightMesh.position.set( 7.0, 7.0, 7.0 );
 
-			var light = new THREE.SpotLight(0xffffff, 0.8, 100, Math.PI / 2, 0.2, 2);
+			var light = new THREE.SpotLight(0xffffff, 0.8, 100, Math.PI / 2, 0.2, 2); // Questa luce viene utilizzata anche nell'illuminazione della scocca azzurra
 			light.position.set(-8.0, 25.0, -10.0);
 		
 			var light1 = new THREE.SpotLight(0xd1e264, 0.8, 100, Math.PI / 3, 1, 8);
@@ -58,7 +58,8 @@
 				scene.add(light1);
 				scene.add(light2);
 				
-
+				// Abilito le impostazioni per le luci
+				
 				 renderer.shadowMap.enabled = true;
 				// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				 light.castShadow = true;
