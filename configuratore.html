@@ -39,7 +39,7 @@
 
 
 				void main() {
-					vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
+					vec4 vPos = modelViewMatrix * vec4( position, 1.0 ); // da object space a view space
 					vPosition = vPos.xyz;
 					wPosition = (modelMatrix * vec4( position, 1.0 )).xyz; // posizione del vertice
 					vNormal = normalize(normalMatrix * normal);  // normale da object space a view space
@@ -83,7 +83,7 @@
 					// Par calcolare il vettore "r" basta riflettere il vettore v (quello che arriva dalla camera) con un angolo pari a quello tra v ed n (vedere screen sul quaderno)
 					// Questo perchè trattiamo la superficie come uno specchio ideale, quindi un raggio che colpisce quella superfice  verrà "risparato" con lo stesso angolo di "entrata"
 
-					vec3 r = normalize( reflect(-worldV,worldN)); 
+					vec3 r = normalize( reflect(-worldV,worldN)); // r vector from objet to cubemaps
 
 					// small quantity to prevent divisions by 0
 					float nDotv = max(dot( n, v ),0.000001);
@@ -113,7 +113,7 @@
 					varying vec3 vPosition;
 			
 					void main() {
-						vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
+						vec4 vPos = modelViewMatrix * vec4( position, 1.0 ); // da object space a view space
 						vPosition = vPos.xyz;
 						vNormal = normalMatrix * normal; // normale da object space a view space
 						gl_Position = projectionMatrix * vPos;
@@ -151,6 +151,7 @@
 						}
 			
 						void main() {
+							// From World space to View Space
 							vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 ); //portiamo la posizione della luce 1 da world space a View Space. Si fa questo perchè è più "comodo" passare la poszione della luce in world space
 							vec4 lPosition2 = viewMatrix * vec4( pointLightPosition2, 1.0 ); //portiamo la posizione della luce 2 da world space a View Space. Si fa questo perchè è più "comodo" passare la poszione della luce in world space
 							vec3 l = normalize(lPosition.xyz - vPosition.xyz);
@@ -182,10 +183,10 @@
 					
 
 		<script type="text/x-glsl" id="vertex_textures">
-				attribute vec4 tangent; // Abbiamo interpolato la tangente nel vertice (sarebbe la cordinata "s")
+				attribute vec4 tangent; // Abbiamo già interpolato la tangente nel vertice (sarebbe la cordinata "s"), con la funzione per calcolare le tangenti
 				varying vec3 vNormal;
 				varying vec3 vPosition;
-				varying vec2 uVv;
+				
 				varying vec2 vUv;
 				varying vec3 vTangent;
 				varying vec3 vBitangent;
@@ -198,7 +199,7 @@
 					vec3 transformedTangent = normalMatrix * objectTangent; // tangente da object space a view space 
 					vTangent = normalize( transformedTangent );
 					// w is 1 or -1 depending on the sign of det( M tangent )
-					vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w ); // ci calcoliamo la btangent (cioè la coordinata "t") facendo un prodotto tra i due vottori che abbiamo, facendo attenzione a right o left 
+					vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w ); // ci calcoliamo la bitangent (cioè la coordinata "t") facendo un prodotto tra i due vettori che abbiamo, facendo attenzione a right o left 
 					vUv = uv;
 					gl_Position = projectionMatrix * vPos;
 				}
@@ -209,7 +210,7 @@
 					varying vec3 vTangent;
 					varying vec3 vBitangent;
 					varying vec3 vPosition;
-					varying vec2 uVv;
+					
 					varying vec2 vUv;
 					uniform vec3 pointLightPosition; // in world space
 					
@@ -259,7 +260,8 @@
 						vec3 v = normalize( -vPosition);
 						vec3 h = normalize( v + l);
 						// small quantity to prevent divisions by 0
-						float nDotl = max(dot( n, l ),0.000001); // Utilizziamo max per non prendere valori negativi
+						// Utilizziamo max per non prendere valori negativi
+						float nDotl = max(dot( n, l ),0.000001); 
 						float lDoth = max(dot( l, h ),0.000001);
 						float nDoth = max(dot( n, h ),0.000001);
 						float vDoth = max(dot( v, h ),0.000001);
@@ -276,6 +278,7 @@
 						roughness = texture2D( roughnessMap, vUv*textureRepeat).r; // no need to linearize roughness map
 						vec3 fresnel = FSchlick(vDoth, cspec);
 						float alpha = roughness * roughness;
+						// diffuse + specular
 						vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/ (4.0*nDotl*nDotv); // Abbiamo sia la parte diffusiva (lambertiana) che speculare (Microfaccette)
 						vec3 outRadiance = PI* clight * nDotl * BRDF;
 						// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
@@ -288,7 +291,7 @@
 					attribute vec4 tangent;
 					varying vec3 vNormal;
 					varying vec3 vPosition;
-					varying vec2 uVv;
+					
 					varying vec2 vUv;
 					varying vec3 vTangent;
 					varying vec3 vBitangent;
@@ -312,7 +315,7 @@
 						varying vec3 vTangent;
 						varying vec3 vBitangent;
 						varying vec3 vPosition;
-						varying vec2 uVv;
+						
 						varying vec2 vUv;
 						uniform vec3 pointLightPosition; // in world space
 						uniform vec3 ambientLight;
@@ -387,17 +390,15 @@
 						}
 					</script>
 
-				<script type="text/x-glsl" id="vertex_irradiance">
-					attribute vec4 tangent;
+				<script type="text/x-glsl" id="vertex_irradiance">	
 					varying vec3 vNormal;
 					varying vec3 vPosition;
-					varying vec3 wPosition;
-					
-			
+
+
 					void main() {
 						vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
 						vPosition = vPos.xyz;
-						wPosition = (modelMatrix * vec4( position, 1.0 )).xyz;
+						
 						vNormal = normalize(normalMatrix * normal);	// normale da object space a view space
 						gl_Position = projectionMatrix * vPos;
 					}
@@ -406,8 +407,6 @@
 					<script type="text/x-glsl" id="fragment_irradiance">
 						varying vec3 vNormal;
 						varying vec3 vPosition;
-						varying vec3 wPosition;
-						
 						uniform vec3 cdiff;
 						uniform samplerCube irradianceMap;
 						const float PI = 3.14159;
