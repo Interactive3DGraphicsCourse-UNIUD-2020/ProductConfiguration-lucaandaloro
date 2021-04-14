@@ -79,10 +79,6 @@
 					vec3 worldN = inverseTransformDirection( n, viewMatrix ); // Portiamo la normale da view space in world space perchè l'envmap è in world space
 					vec3 worldV = cameraPosition - wPosition ; // Portiamo il vettore v (che va dal punto alla camera) da view space in world space facendo posizioneDellaCamera - poszioneDelVertice
 
-					// Calcoliamo il vettore "r" che ci servirà per accedere ai texels della cubemap
-					// Par calcolare il vettore "r" basta riflettere il vettore v (quello che arriva dalla camera) con un angolo pari a quello tra v ed n (vedere screen sul quaderno)
-					// Questo perchè trattiamo la superficie come uno specchio ideale, quindi un raggio che colpisce quella superfice  verrà "risparato" con lo stesso angolo di "entrata"
-
 					vec3 r = normalize( reflect(-worldV,worldN)); // r vector from objet to cubemaps
 
 					// small quantity to prevent divisions by 0
@@ -90,21 +86,16 @@
 					vec3 fresnel = FSchlick(nDotv, cspec);
 
 					// negate x to account for how cubemap is displayed on background
-					// Texturecube è una funzione apposita che prende due argomenti 
-					// - 1. la cubemap nel nostro caso appunto envMap, 
-					// - 2. il vettore direzione che parte dal centro del cubo e colpisci il texels corrispondente
 
 					vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb; 
 
-					// texture in sRGB (NON HDR) quindi dobbiamo linearize con il gamma decoding
+					// dobbiamo linearize con il gamma decoding
 					envLight = pow( envLight, vec3(2.2));
-					// Equazione di rendering, la superficie viene considerata come specchio ideale 
-					// quindi non si hanno le brdf che abbiamo visto fino ad adesso (Microfaccette e lambertiana) ma sono la parte di frenel
 
 					vec3 outRadiance = fresnel*envLight; 
 
-					// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
-					// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
+					// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45.
+					
 					gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 				}
 			</script>
@@ -126,8 +117,8 @@
 						uniform vec3 pointLightPosition; // in world space
 						uniform vec3 pointLightPosition2; // in world space
 						uniform vec3 clight;
-						uniform vec3 cspec;  //  che corrisponde a f0
-						uniform float roughness; // Sarebbe alpha
+						uniform vec3 cspec;  // f0
+						uniform float roughness; //  alpha
 						const float PI = 3.14159;
 			
 						vec3 FSchlick(float vDoth, vec3 f0) {
@@ -152,8 +143,8 @@
 			
 						void main() {
 							// From World space to View Space
-							vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 ); //portiamo la posizione della luce 1 da world space a View Space. Si fa questo perchè è più "comodo" passare la poszione della luce in world space
-							vec4 lPosition2 = viewMatrix * vec4( pointLightPosition2, 1.0 ); //portiamo la posizione della luce 2 da world space a View Space. Si fa questo perchè è più "comodo" passare la poszione della luce in world space
+							vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 ); // da world space a View Space.
+							vec4 lPosition2 = viewMatrix * vec4( pointLightPosition2, 1.0 ); //da world space a View Space. 
 							vec3 l = normalize(lPosition.xyz - vPosition.xyz);
 							vec3 l2 = normalize(lPosition2.xyz - vPosition.xyz);
 							vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
@@ -175,15 +166,14 @@
 							vec3 specularBRDF2 = FSchlick(vDoth2, cspec)*GSmith(nDotv,nDotl2, alpha)*DGGX(nDoth2,alpha)/(4.0*nDotl2*nDotv);
 							
 							vec3 outRadiance = PI*  ((clight *nDotl * specularBRDF) + (clight * nDotl2 * specularBRDF2)); //  equazione di rendering con le BRDF con le due luci
-							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
-							// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
+							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45.
 							gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0); 
 						}
 			</script>
 					
 
 		<script type="text/x-glsl" id="vertex_textures">
-				attribute vec4 tangent; // Abbiamo già interpolato la tangente nel vertice (sarebbe la cordinata "s"), con la funzione per calcolare le tangenti
+				attribute vec4 tangent; //  tangent (sarebbe la cordinata "s")
 				varying vec3 vNormal;
 				varying vec3 vPosition;
 				
@@ -199,7 +189,7 @@
 					vec3 transformedTangent = normalMatrix * objectTangent; // tangente da object space a view space 
 					vTangent = normalize( transformedTangent );
 					// w is 1 or -1 depending on the sign of det( M tangent )
-					vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w ); // ci calcoliamo la bitangent (cioè la coordinata "t") facendo un prodotto tra i due vettori che abbiamo, facendo attenzione a right o left 
+					vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w ); 
 					vUv = uv;
 					gl_Position = projectionMatrix * vPos;
 				}
@@ -249,13 +239,13 @@
 		
 					void main() {
 						vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 ); // Portiamo la posizione della luce in view space
-						vec3 l = normalize(lPosition.xyz - vPosition.xyz); // Calcoliamo il vettore che va dal punto alla luce (appunto il vettore l) si calcola facendo la sottrazione tra 
+						vec3 l = normalize(lPosition.xyz - vPosition.xyz); 
 						vec3 normal = normalize( vNormal );
 						vec3 tangent = normalize( vTangent );
 						vec3 bitangent = normalize( vBitangent );
-						// matrix to convert bewtween tangent space and view space
-						mat3 vTBN = mat3( tangent, bitangent, normal ); // Tutti i valori sono in view space
-						vec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0; //  In poche parole stiamo leggendo la normale dalla texture. Prendendo il texel e effettuando una decodifica da rgb a xyz, quindi da colore a "cordinate". Perchè in precedenza per inserire informazioni di coordinate (delle normali) sono state fatte delle operazioni per trasformarle in colori
+						// matrix to convert bewtween tangent space and view space, all value are view space
+						mat3 vTBN = mat3( tangent, bitangent, normal ); 
+						vec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0; // read normal and value from color rgb to coordinates xyz
 						vec3 n = normalize( vTBN * mapN  );  // Moltiplico la matrice vTBN per il vettore mapN per passare da tangent space a View space e interpolation destroys normalization, so we have to normalize
 						vec3 v = normalize( -vPosition);
 						vec3 h = normalize( v + l);
@@ -269,8 +259,7 @@
 		
 						cdiff = texture2D( diffuseMap, vUv*textureRepeat ).rgb;
 						// texture in sRGB, linearize.
-						// Essendo che abbiamo un'immagine in sRGB l'immagine è stata calcolata con la funzione gamma, 
-						// quindi dobbiamo fare un gamma decoding(linearizzare)
+						
 						cdiff = pow( cdiff, vec3(2.2));
 						cspec = texture2D( specularMap, vUv*textureRepeat ).rgb;
 						// texture in sRGB, linearize
@@ -281,8 +270,8 @@
 						// diffuse + specular
 						vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/ (4.0*nDotl*nDotv); // Abbiamo sia la parte diffusiva (lambertiana) che speculare (Microfaccette)
 						vec3 outRadiance = PI* clight * nDotl * BRDF;
-						// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
-						// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
+						// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45.
+						
 						gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 					}
 				</script>
@@ -360,7 +349,7 @@
 							vec3 bitangent = normalize( vBitangent );
 							// matrix to convert bewtween tangent space and view space
 							mat3 vTBN = mat3( tangent, bitangent, normal );
-							vec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0; //  In poche parole stiamo leggendo la normale dalla texture. Prendendo il texel e effettuando una decodifica da rgb a xyz, quindi da colore a "cordinate".
+							vec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0; // read normal and value from color rgb to coordinates xyz
 							vec3 n = normalize( vTBN * mapN  );  // Moltiplico la matrice vTBN per il vettore mapN per passare da tangent space a eye space e interpolation destroys normalization, so we have to normalize
 							vec3 v = normalize( -vPosition);
 							vec3 h = normalize( v + l);
@@ -373,8 +362,6 @@
 			
 							cdiff = texture2D( diffuseMap, vUv*textureRepeat ).rgb;
 							// texture in sRGB, linearize.
-							// Essendo che abbiamo un'immagine in sRGB l'immagine è stata calcolata con la funzione gamma, 
-							// quindi dobbiamo fare un gamma encoding(linearizzare)
 							cdiff = pow( cdiff, vec3(2.2));
 							cspec = texture2D( specularMap, vUv*textureRepeat ).rgb;
 							// texture in sRGB, linearize
@@ -384,8 +371,7 @@
 							float alpha = roughness * roughness;
 							vec3 BRDF = fresnel*GSmith(nDotv,nDotl, alpha)*DGGX(nDoth,alpha)/ (4.0*nDotl*nDotv); // non utilizzo la parte diffusiva nella BRDF per dare un effetto più metallico! Ma viene utilizzata per l'illuminazione ambientale
 							vec3 outRadiance = PI* clight * nDotl * BRDF + ambientLight*cdiff*texture2D( aoMap, vUv ).xyz;
-							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
-							// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
+							// gamma encode the final value
 							gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 						}
 					</script>
@@ -429,8 +415,7 @@
 							// texture in sRGB, linearize, gamma decoding
 							irradiance = pow( irradiance, vec3(2.2));
 							vec3 outRadiance = cdiff*irradiance;
-							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. Quindi  per fare il gamma encoding si fa: valore^gamma. Per elevare in glsl si utilizza la funzione "pow".
-							// Facciamo il gamma encoding perchè poi in automatico lo schermo effettua il decoding!
+							// gamma encode the final value, per sRGB gamma è 1/2.2 = 0.45. 
 							gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 						}
 					</script>
